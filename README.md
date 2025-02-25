@@ -1,7 +1,7 @@
 # CIMPA GAME - GRUPO 7
 
 ## Descripción
-CIMPA es un juego inspirado en Pou, pero enfocado en el cuidado de plantas. Los jugadores podrán interactuar con su planta virtual, alimentarla, regarla y verla crecer con el tiempo. El juego cuenta con un diseño en estilo pixel art para ofrecer una experiencia visual retro y atractiva.
+Los jugadores podrán interactuar con su planta virtual, alimentarla, regarla y verla crecer con el tiempo. El juego cuenta con un diseño en estilo pixel art para ofrecer una experiencia visual retro y atractiva.
 
 Nuestro equipo está encargado de desarrollar:
 - La pantalla principal del juego.
