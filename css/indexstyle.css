@@ -1,0 +1,45 @@
+li {
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 10px;
+}
+li a {
+    text-decoration: none; 
+    color: inherit;
+}
+
+li a:visited {
+    color: inherit; 
+}
+li a:hover {
+    background-color: hsla(37.4, 91%, 54%, 0.3); 
+    transition: background-color 0.2s ease-in-out 0.3s;
+    border-radius: 7px;
+}
+
+li::before{
+    content: url(../resources/img/image.png);
+    display: inline-block;
+    width: 24px; 
+    height: 24px;
+    background-size: contain; 
+    margin-right: 3px; 
+}
+
+ul {
+    list-style: none;
+    margin:0 auto;
+    margin-left: 40px;
+}
+
+ul li{
+    list-style: none;
+}
+
+.contenedor{
+    width: 370px;
+}
+
+.logo{
+    width: 150px;
+}
