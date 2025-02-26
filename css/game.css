@@ -82,11 +82,19 @@ main {
     margin: 20px 0;
 }
 
+.items-pet{
+    display: flex;
+}
 .items-pet a img {
     width: 50px;
     margin: 10px;
 }
-
+.buttons-pet {
+    display: inline-block;
+}
+.chat-pet {
+    flex-direction: column-reverse;
+}
 #chat img {
     width: 20px;
 }
