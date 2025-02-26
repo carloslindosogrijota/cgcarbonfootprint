@@ -30,9 +30,14 @@ header img {
     display: flex;
     align-items: center;
     margin: 15px;
+    width: 15px;
 }
 .user {
-        margin: 15px;
+    margin: 15px;
+}
+
+.user img{
+    width: 30px;
 }
 
 main {
@@ -69,7 +74,7 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: #C12B2A;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     padding: 8px 0;
 }
