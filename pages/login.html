@@ -22,7 +22,14 @@
                     <label for="nombre">Nombre</label>
                     <input class="input-nombre" type="text" name="nombre">
                     <label for="codigo">Codigo</label>
-                    <input type="text" name="codigo">
+                    <div class="digit-group">
+                        <input class="digit-input" type="text" id="d1" name="d1" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1)" onkeyup="if (this.value.length == 1) d2.focus()"/>
+                        <input class="digit-input" type="text" id="d2" name="d2" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1)" onkeyup="if (this.value.length == 1) d3.focus(); else if (this.value.length == 0) d1.focus()"/>
+                        <input class="digit-input" type="text" id="d3" name="d3" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1)" onkeyup="if (this.value.length == 1) d4.focus(); else if (this.value.length == 0) d2.focus()"/>
+                        <input class="digit-input" type="text" id="d4" name="d4" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1)" onkeyup="if (this.value.length == 1) d5.focus(); else if (this.value.length == 0) d3.focus()"/>
+                        <input class="digit-input" type="text" id="d5" name="d5" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1)" onkeyup="if (this.value.length == 1) d6.focus(); else if (this.value.length == 0) d4.focus()"/>
+                        <input class="digit-input" type="text" id="d6" name="d6" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1)" onkeyup="if (this.value.length == 0) d5.focus()"/>
+                    </div>
                 </div>
                 <img src="../resources/img/selectbox_bl.png" id="bl"/>
                 <img src="../resources/img/selectbox_br.png" id="br"/>

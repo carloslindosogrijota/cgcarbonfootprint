@@ -43,3 +43,7 @@ ul li {
   margin-top: 15px;
   width: 40px;
 }
+
+input {
+  font-family: "Pixelify Sans", serif;
+}
