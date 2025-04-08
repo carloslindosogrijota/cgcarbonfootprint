@@ -106,25 +106,25 @@ form {
 }
 
 .PRUEB {
-    background-color: white;
-    background-image: radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                      radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                      radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                      radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
-    animation: hero-gradient-animation 10s linear infinite alternate;
+background-color: white;
+background-image: radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+                    radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+                    radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+                    radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
+animation: hero-gradient-animation 10s linear infinite alternate;
 }
 
 @keyframes hero-gradient-animation {
-    0% {
-        background-image: radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                          radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                          radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                          radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
-    }
-    100% {
-        background-image: radial-gradient(circle at 3% 36%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                          radial-gradient(circle at 77% 20%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                          radial-gradient(circle at 76% 78%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                          radial-gradient(circle at 77% 90%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%);
-    }
+0% {
+    background-image: radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+                    radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+                        radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+                        radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
+}
+100% {
+    background-image: radial-gradient(circle at 3% 36%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+                        radial-gradient(circle at 77% 20%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+                        radial-gradient(circle at 76% 78%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+                        radial-gradient(circle at 77% 90%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%);
+}
 }
