@@ -68,17 +68,23 @@ main {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin: 10px 0 -10px ;
+    margin: 10px 0 -10px;
 }
-#health, #gout {
+
+#health,
+#gout {
     width: 25px;
 }
-#health-status, #drink-status {
+
+#health-status,
+#drink-status {
     width: 40px;
 }
+
 .pet {
     margin-bottom: 15%;
 }
+
 .pet img {
     width: 250px;
     margin: 20px 0;
@@ -111,19 +117,23 @@ main {
     display: flex;
     align-items: flex-end;
 }
+
 .chat-pet {
     margin-bottom: -80px;
 }
 
 
-.drink-button-pet, .closet-button-pet {
-        margin: 0 0 -10px 15px;
+.drink-button-pet,
+.closet-button-pet {
+    margin: 0 0 -10px 15px;
 }
+
 .button-chat-pet {
     display: flex;
     flex-direction: column-reverse;
     margin-right: 15px;
 }
+
 #chat img {
     width: 25px;
 }
