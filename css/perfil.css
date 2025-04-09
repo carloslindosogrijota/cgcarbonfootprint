@@ -24,7 +24,7 @@ main {
 }
 
 .pet {
-    margin-bottom: 15%;
+    margin-bottom: 0;
 
 }
 .pet img {
@@ -36,17 +36,38 @@ main {
 
 .container {
     text-align: center;
-    max-width: 350px;
-    padding: 20px;
-    border-radius: 10px;
-  }
+    max-width: 800px;
+    padding: 10px;
+
+}
 
 h1 {
-    font-size: 36px;
-  }
+    font-size: 40px;
+    margin-bottom: 10%;
+    color: #c12b2a;
+}
 
+h2{
+    font-size: 30px;
+    color: black;
+    margin-bottom: 10%;
 
-  
+}
+
+hr {
+    width:400px;  
+    height: 3px;
+    background-color: black;
+    border: none;
+
+}
+
+#trophy{
+    border-bottom: 5%;
+    border-radius: 25%;
+    width: 40px;
+}
+
 footer {
     position: fixed;
     bottom: 0;
@@ -59,9 +80,9 @@ footer {
 }
 
 @media (max-width: 768px) {
-    footer {
-        display: block;
-    }
+footer {
+    display: block;
+}
 }
 
 .items-footer {
