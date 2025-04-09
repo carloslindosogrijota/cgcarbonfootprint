@@ -4,6 +4,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="../css/game.css">
+   <link rel="stylesheet" href="../css/popup.css">
    <title>Home - CWP</title>
 </head>
 <body>
@@ -56,13 +57,14 @@
 
 
          <div class="button-chat-pet">
-            <button popovertarget="popup">
-               <div class="chat-pet">
-                  <a id="chat" href="#">
-                     <img src="../resources/img/expression_chat.png" alt="Chat icon">
-                  </a>
-               </div>
+            <button popovertarget="popup" class="chat-pet" id="chat">
+               <img src="../resources/img/expression_chat.png" alt="Chat icon">
             </button>
+            <div popover id="popup" class="popup">
+               <p>AQUI VA A ESTAR EL CHAT DE NUESTRO BOT</p>
+               <br>
+               <button popovertarget="popup" popoveraction="hide">Cerrar Chat</button>
+            </div>             
          </div>
 
 
