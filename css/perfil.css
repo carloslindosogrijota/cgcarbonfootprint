@@ -30,27 +30,29 @@ main {
 .pet img {
     border: 2px solid black;
     border-radius: 25%;
-    width: 200px;
+    width: 180px;
     margin: 20px 0;
 }
 
 .container {
     text-align: center;
     max-width: 800px;
+    max-height: 100%;
     padding: 10px;
+    box-sizing: border-box;
 
 }
 
 h1 {
-    font-size: 40px;
-    margin-bottom: 10%;
+    font-size: 30px;
+    margin-bottom: 5%;
     color: #c12b2a;
 }
 
 h2{
-    font-size: 30px;
+    font-size: 25px;
     color: black;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
 
 }
 
