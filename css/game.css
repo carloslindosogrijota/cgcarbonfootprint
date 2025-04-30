@@ -137,23 +137,6 @@ main {
   width: 25px;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  margin: 0 aut;
-  left: 0;
-  width: 100%;
-  background-color: #c12b2a;
-  box-shadow: 0 -2px 10px rgba(5, 1, 1, 0.231);
-  padding: 15px 0;
-}
-
-@media (max-width: 768px) {
-  footer {
-    display: block;
-  }
-}
-
 .items-footer {
   display: flex;
   justify-content: space-around;
