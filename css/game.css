@@ -1,174 +1,198 @@
 @import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    cursor: url("../resources/cursor/cursor_02.png"), auto;
-    font-family: "Pixelify Sans", serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: url("../resources/cursor/cursor_02.png"), auto;
+  font-family: "Pixelify Sans", serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    display: flex;
-    flex-direction: column;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
 }
 
 header img {
-    width: 40px;
-    height: auto;
+  width: 40px;
+  height: auto;
 }
 
 .all-coins {
-    display: inline-block;
+  display: inline-block;
 }
 
 .all-coins p {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .flowers,
 .coins {
-    display: flex;
-    align-items: center;
-    margin: 15px;
-    width: 5px;
+  display: flex;
+  align-items: center;
+  margin: 15px;
+  width: 5px;
 }
 
 .coins img,
 .flowers img {
-    width: 25px;
+  width: 25px;
 }
 
 .user {
-    margin: 15px;
+  margin: 15px;
 }
 
 .user img {
-    width: 30px;
+  width: 30px;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 60px;
 }
 
 .health,
 .thirst {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin: 10px 0 -10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 10px 0 -10px;
 }
 
 #health,
 #gout {
-    width: 25px;
+  width: 25px;
 }
 
 #health-status,
 #drink-status {
-    width: 40px;
+  width: 40px;
 }
 
 .pet {
-    margin-bottom: 15%;
+  margin-bottom: 15%;
 }
 
 .pet img {
-    width: 250px;
-    margin: 20px 0;
+  width: 250px;
+  margin: 20px 0;
 }
 
 .items-pet a img {
-    width: 50px;
-    margin: 10px;
+  width: 50px;
+  margin: 10px;
 }
 
 .items-pet {
-    position: fixed;
-    bottom: 60px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-    padding: 0 5px;
-    margin-bottom: 35px;
+  position: fixed;
+  bottom: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  padding: 0 5px;
+  margin-bottom: 35px;
 }
 
 .buttons-pet {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .button-chat-pet {
-    display: flex;
-    align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .chat-pet {
-    margin-bottom: -80px;
+  margin-bottom: -80px;
 }
-
 
 .drink-button-pet,
 .closet-button-pet {
-    margin: 0 0 -10px 15px;
+  margin: 0 0 -10px 15px;
 }
 
 .button-chat-pet {
-    display: flex;
-    flex-direction: column-reverse;
-    margin-right: 15px;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-right: 15px;
 }
 
 #chat img {
-    width: 25px;
+  width: 25px;
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    margin: 0 aut;
-    left: 0;
-    width: 100%;
-    background-color: #c12b2a;
-    box-shadow: 0 -2px 10px rgba(5, 1, 1, 0.231);
-    padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+  margin: 0 aut;
+  left: 0;
+  width: 100%;
+  background-color: #c12b2a;
+  box-shadow: 0 -2px 10px rgba(5, 1, 1, 0.231);
+  padding: 15px 0;
 }
 
 @media (max-width: 768px) {
-    footer {
-        display: block;
-    }
+  footer {
+    display: block;
+  }
 }
 
 .items-footer {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .items-footer a {
-    flex: 1;
-    text-align: center;
+  flex: 1;
+  text-align: center;
 }
 
 .items-footer img {
-    width: 25px;
-    height: auto;
+  width: 25px;
+  height: auto;
+}
+
+/* watering_can 
+#watering-can {
+  display: none;
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  transform: translateX(-50%);
+  width: 80px;
+  z-index: 10;
+}
+*/
+#watering-can {
+  position: absolute;
+  top: 5%; 
+  left: 40%;
+  transform: translateX(-40%);
+  z-index: 10;
+  transition: top 0.6s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+#watering-can.show {
+  top: 40%; 
+  opacity: 1;
 }
