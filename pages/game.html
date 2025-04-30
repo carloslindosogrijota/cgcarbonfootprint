@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< Updated upstream
    <link rel="stylesheet" href="../css/game.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
    <title>Home - CWP</title>   
+=======
+   <link rel="stylesheet" href="../css/main.css">
+   <title>Home - CIMPA</title>
+>>>>>>> Stashed changes
 </head>
 <body>
-
    <header>
-      <div class="all-coins">
-         <div class="coins">
-            <img src="../resources/img/coin.png" alt="Coins"><br>
-            <p>24.70</p>
-         </div>
-         <div class="flowers">
-            <img src="../resources/img/sfl.png" alt="Coins2">
-            <p>12</p>
-         </div>
+      <div class="coins">
+         <img src="../resources/img/coin.png" alt="Coins">
+         <p>24.70</p>
       </div>
       <div class="user">
          <a href="../pages/perfil.html"><img src="../resources/img/userrr.png" alt="User logo" ></a>
@@ -26,6 +24,7 @@
    </header>
 
    <main>
+<<<<<<< Updated upstream
       <div class="status">
          <div class="health">
             <img id="health" src="../resources/img/expression_love.png" alt="Health" class="icnn">
@@ -38,6 +37,31 @@
          <div id="watering-can">
             <img src="../resources/img/watering_can.png" alt="Regadera" style="width: 80px;">
          </div>
+=======
+      <!-- Barras de estado mejoradas con CSS -->
+      <div class="status-container">
+          <div class="status-bar">
+              <div class="status-icon">
+                  <img id="health-icon" src="../resources/img/expression_love.png" alt="Health">
+              </div>
+              <div class="status-progress">
+                  <div class="progress-bar-bg">
+                      <div class="progress-bar-fill health-fill" id="health-bar"></div>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="status-bar">
+              <div class="status-icon">
+                  <img id="thirst-icon" src="../resources/img/expression_working.png" alt="Thirst">
+              </div>
+              <div class="status-progress">
+                  <div class="progress-bar-bg">
+                      <div class="progress-bar-fill thirst-fill" id="thirst-bar"></div>
+                  </div>
+              </div>
+          </div>
+>>>>>>> Stashed changes
       </div>
 
       <div class="pet">
@@ -58,34 +82,48 @@
             </div>
          </div>
 
-
          <div class="button-chat-pet">
-            <button popovertarget="popup">
-               <div class="chat-pet">
-                  <a id="chat" href="#">
-                     <img src="../resources/img/expression_chat.png" alt="Chat icon">
-                  </a>
-               </div>
-            </button>
+            <div class="chat-pet">
+               <a id="chat" href="#">
+                  <img src="../resources/img/expression_chat.png" alt="Chat icon">
+               </a>
+            </div>
          </div>
-
-
       </div>
    </main>
 
-   <footer class="footer1">
+   <footer>
       <nav>
          <div class="items-footer">
-            <a href="game.html"><img src="../resources/icons/homeW.png" alt="Home logo" id="hvr"></a>
-            <a href="#"><img src="../resources/icons/leaderboardW.png" alt="Trophy logo"></a>
-            <a href="#"><img src="../resources/icons/qrW.png" alt="Camera logo"></a>
-            <a href="#"><img src="../resources/icons/tasksW.png" alt="Tasks logo"></a>
-            <a href="#"><img src="../resources/icons/cartW.png" alt="Shop logo"></a>
+            <a href="game.html" class="footer-item active">
+               <img src="../resources/icons/homeW.png" alt="Home logo">
+               <span>Home</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/leaderboardW.png" alt="Trophy logo">
+               <span>Ranking</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/qrW.png" alt="Camera logo">
+               <span>Scan</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/tasksW.png" alt="Tasks logo">
+               <span>Tasks</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/cartW.png" alt="Shop logo">
+               <span>Shop</span>
+            </a>
          </div>
       </nav>
    </footer>
    <script src="../resources/cursor.js"></script>
+<<<<<<< Updated upstream
    <script src="../assets/javascript/regarFlor.js"></script>
 
+=======
+   <script src="../resources/game.js"></script>
+>>>>>>> Stashed changes
 </body>
 </html>
