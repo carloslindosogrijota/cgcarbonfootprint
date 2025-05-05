@@ -73,11 +73,11 @@
             }, 1500);
          }
 
-         // Cambiar barra de sed
+         /*// Cambiar barra de sed
          if (drinkStatus && currentBarIndex < barImages.length - 1) {
             currentBarIndex++;
             drinkStatus.src = barImages[currentBarIndex];
-         }
+         }*/
       });
    }
 });

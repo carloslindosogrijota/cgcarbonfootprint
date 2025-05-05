@@ -116,6 +116,7 @@ main {
 .button-chat-pet {
   display: flex;
   align-items: flex-end;
+  margin-bottom: 45px;
 }
 
 .chat-pet {

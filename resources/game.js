@@ -20,9 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Rutas de imágenes para los iconos
     const iconExpressions = {
-        happy: '../resources/img/expression_love.png',
-        normal: '../resources/img/expression_working.png',
-        sad: '../resources/img/expression_sad.png'
+        fullHealth: '../resources/img/expression_health_love.png',
+        midHealth: '../resources/img/expression_health_middle.png',
+        emptyHealth: '../resources/img/expression_health_sad.png',
+        fullThirst: '../resources/img/expression_thirst_full.png',
+        midThirst: '../resources/img/expression_thirst_mid.png',
+        emptyThirst: '../resources/img/expression_thirst_sad.png'
     };
     
     // Mensajes de la planta
@@ -34,41 +37,86 @@ document.addEventListener('DOMContentLoaded', function() {
         '¡Necesito atención!'
     ];
     
+    const retosRSC = [
+        '#[$] RETO -> \n#[i] Información sobre el reto que cubre la empresa en este aspecto.'
+    ];
+
+    //FUNCIONES ANTIGUAS ACTUALIZAR BARRAS DE SALUD Y SED
     // Función para actualizar la barra de salud según el valor
-    function updateHealthBar() {
+    /*function updateHealthBar() {
         // Actualizar el ancho de la barra de progreso
         healthBar.style.width = healthStatus + '%';
         
         // Cambiar color y añadir clase de advertencia si es bajo
-        if (healthStatus < 25) {
+        if (healthStatus < 5) {
             healthBar.classList.add('warning');
-            healthIcon.src = iconExpressions.sad;
-        } else if (healthStatus < 50) {
+            healthIcon.src = iconExpressions.emptyHealth;
+        } else if (healthStatus < 75) {
             healthBar.classList.remove('warning');
-            healthIcon.src = iconExpressions.normal;
+            healthIcon.src = iconExpressions.midHealth;
         } else {
             healthBar.classList.remove('warning');
-            healthIcon.src = iconExpressions.happy;
+            healthIcon.src = iconExpressions.fullHealth;
+        }
+    }*/
+
+    // Función para actualizar la barra de sed según el valor
+    /*function updateThirstBar() {
+        // Actualizar el ancho de la barra de progreso
+        thirstBar.style.width = thirstStatus + '%';
+    
+        // Cambiar color y añadir clase de advertencia si es bajo
+        if (thirstStatus < 5) {
+            thirstBar.classList.add('warning');
+            thirstIcon.src = iconExpressions.emptyThirst;
+        } else if (thirstStatus < 75) {
+            thirstBar.classList.remove('warning');
+            thirstIcon.src = iconExpressions.midThirst;
+        } else {
+            thirstBar.classList.remove('warning');
+            thirstIcon.src = iconExpressions.fullThirst;
+        }
+    }*/
+
+    //FUNCION NUEVA
+    function updateBar(statusBar) {
+        //Variables para ambas barras
+        let status;
+        let statusIcon;
+        let full;
+        let mid;
+        let empty;
+
+        // Actualizar el ancho de la barra de progreso y actualizar las variables en cada caso
+        if (statusBar === healthBar){
+            healthBar.style.width = healthStatus + '%';
+            status = healthStatus;
+            statusIcon = healthIcon;
+            full = iconExpressions.fullHealth;
+            mid = iconExpressions.midHealth;
+            empty = iconExpressions.emptyHealth;
+        }else if (statusBar === thirstBar){
+            thirstBar.style.width = thirstStatus + '%';
+            status = thirstStatus;
+            statusIcon = thirstIcon;
+            full = iconExpressions.fullThirst;
+            mid = iconExpressions.midThirst;
+            empty = iconExpressions.emptyThirst;
+        }
+        
+        // Cambiar color y añadir clase de advertencia si es bajo
+        if (status < 5) {
+            statusBar.classList.add('warning');
+            statusIcon.src = empty;
+        } else if (status < 75) {
+            statusBar.classList.remove('warning');
+            statusIcon.src = mid;
+        } else {
+            statusBar.classList.remove('warning');
+            statusIcon.src = full;
         }
     }
     
-    // Función para actualizar la barra de sed según el valor
-    function updateThirstBar() {
-        // Actualizar el ancho de la barra de progreso
-        thirstBar.style.width = thirstStatus + '%';
-        
-        // Cambiar color y añadir clase de advertencia si es bajo
-        if (thirstStatus < 25) {
-            thirstBar.classList.add('warning');
-            thirstIcon.src = iconExpressions.sad;
-        } else if (thirstStatus < 50) {
-            thirstBar.classList.remove('warning');
-            thirstIcon.src = iconExpressions.normal;
-        } else {
-            thirstBar.classList.remove('warning');
-            thirstIcon.src = iconExpressions.happy;
-        }
-    }
     
     // Crear un globo de mensaje para la planta
     function showPlantMessage(message) {
@@ -96,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Función de animación para la planta
     function animatePlant() {
-        plant.style.transform = 'scale(1.05)';
+        plant.style.transform = 'scale(1.5)';
         setTimeout(() => {
             plant.style.transform = 'scale(1)';
         }, 300);
@@ -111,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (thirstStatus > 100) thirstStatus = 100;
         
         // Actualizar UI
-        updateThirstBar();
+        updateBar(thirstBar);
         animatePlant();
         showPlantMessage('¡Ahh! ¡Gracias por el agua!');
     });
@@ -125,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (healthStatus > 100) healthStatus = 100;
         
         // Actualizar UI
-        updateHealthBar();
+        updateBar(healthBar);
         animatePlant();
         showPlantMessage('¡Mmm! ¡Delicioso!');
     });
@@ -147,8 +195,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (healthStatus < 0) healthStatus = 0;
         if (thirstStatus < 0) thirstStatus = 0;
         
-        updateHealthBar();
-        updateThirstBar();
+        /*updateHealthBar();
+        updateThirstBar();*/
+        updateBar(healthBar);
+        updateBar(thirstBar);
         
         // Avisar al usuario si los niveles son bajos
         if (healthStatus < 20 || thirstStatus < 20) {
@@ -158,16 +208,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Inicializar valores y UI
-    updateHealthBar();
-    updateThirstBar();
-    
+    updateBar(healthBar);
+    updateBar(thirstBar);
+
     // Empezar deterioro cada 30 segundos
-    setInterval(deterioratePlant, 1000);
+    setInterval(deterioratePlant, 20000);
     
-    // Mostrar mensaje inicial después de un breve retraso
+    /*// Mostrar mensaje inicial después de un breve retraso
     setTimeout(() => {
         showPlantMessage('¡Hola! ¡Cuida de mí!');
-    }, 1000);
+    }, 1000);*/
     
     // Guardar estado en localStorage cuando el usuario cierra la página
     window.addEventListener('beforeunload', function() {
@@ -195,8 +245,8 @@ document.addEventListener('DOMContentLoaded', function() {
             thirstStatus = Math.max(0, thirstStatus - timeElapsed * 0.4);
             
             // Actualizar UI
-            updateHealthBar();
-            updateThirstBar();
+            updateBar(healthBar);
+            updateBar(thirstBar);
             
             // Mensaje basado en el estado
             if (healthStatus < 20 || thirstStatus < 20) {
