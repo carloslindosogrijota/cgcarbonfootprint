@@ -1,174 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/game.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <title>Home - CIMPA</title>
-  </head>
-  <body>
-    <header>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="../css/game.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+   <title>Home - CWP</title>   
+   <title>Home - CIMPA</title>
+</head>
+<body>
+   <header>
       <div class="coins">
-        <img src="../resources/img/coin.png" alt="Coins" />
-        <p>00.00</p>
+         <img src="../resources/img/coin.png" alt="Coins">
+         <p>00.00</p>
       </div>
       <div class="user">
-        <a href="../pages/perfil.html"
-          ><img src="../resources/img/userrr.png" alt="User logo"
-        /></a>
+         <a href="../pages/perfil.html"><img src="../resources/img/userrr.png" alt="User logo" ></a>
       </div>
-    </header>
+   </header>
 
-    <main>
-      <!-- Barras de estado mejoradas con CSS -->
+   <main>
+      <!-- Barras de estado mejoradas con estilo pixel art -->
       <div class="status-container">
-        <div class="status-bar">
-          <div class="status-icon">
-            <img
-              id="health-icon"
-              src="../resources/img/expression_love.png"
-              alt="Health"
-            />
+          <div class="status-bar">
+              <div class="status-icon">
+                  <img id="health-icon" src="../resources/img/expression_love.png" alt="Health">
+              </div>
+              <div class="status-progress">
+                  <div class="pixel-progress-border">
+                      <div class="pixel-progress-bg">
+                          <div class="pixel-progress-fill health-fill" id="health-bar"></div>
+                      </div>
+                  </div>
+              </div>
           </div>
-          <div class="status-progress">
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill health-fill" id="health-bar"></div>
-            </div>
+          
+          <div class="status-bar">
+              <div class="status-icon">
+                  <img id="thirst-icon" src="../resources/img/expression_working.png" alt="Thirst">
+              </div>
+              <div class="status-progress">
+                  <div class="pixel-progress-border">
+                      <div class="pixel-progress-bg">
+                          <div class="pixel-progress-fill thirst-fill" id="thirst-bar"></div>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-
-        <div class="status-bar">
-          <div class="status-icon">
-            <img
-              id="thirst-icon"
-              src="../resources/img/expression_working.png"
-              alt="Thirst"
-            />
-          </div>
-          <div class="status-progress">
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill thirst-fill" id="thirst-bar"></div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="pet">
-        <img src="../resources/img/flower.png" alt="Pet" />
+         <img src="../resources/img/flower.png" alt="Pet">
       </div>
 
       <div class="items-pet">
-        <div class="buttons-pet">
-          <div class="drink-button-pet">
-            <a id="drink" href="#">
-              <img
-                src="../resources/img/buttonbre.png"
-                alt="Flowerpot with water"
-              />
-            </a>
-          </div>
-          <div class="closet-button-pet">
-            <a id="closet" href="#">
-              <img src="../resources/img/cestanew.png" alt="Basket with food" />
-            </a>
-          </div>
-        </div>
+         <div class="buttons-pet">
+            <div class="drink-button-pet">
+               <a id="drink" href="#">
+                  <img src="../resources/img/buttonbre.png" alt="Flowerpot with water">
+               </a>
+            </div>
+            <div class="closet-button-pet">
+               <a id="closet" href="#">
+                  <img src="../resources/img/cestanew.png" alt="Basket with food">
+               </a>
+            </div>
+         </div>
 
-        <div class="button-chat-pet">
-          <div class="chat-pet">
-            <a id="chat" href="#">
-              <img src="../resources/img/expression_chat.png" alt="Chat icon" />
-            </a>
+         <div class="button-chat-pet">
+            <div class="chat-pet">
+               <a id="chat" href="#">
+                  <img src="../resources/img/expression_chat.png" alt="Chat icon">
+               </a>
+            </div>
+         </div>
+      </div>
+      
+      <!-- Modal de Inventario -->
+      <div id="closet-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Inventario de Prendas</h2>
+            <span class="close-modal">&times;</span>
+          </div>
+          <div class="modal-body">
+            <div class="inventory-grid">
+              <div class="inventory-item">
+                <img src="../resources/img/Accesorios/gafas.png" alt="Gafas">
+                <p>Gafas Basicas</p>
+              </div>
+              <div class="inventory-item">
+                <img src="../resources/img/Accesorios/Gafas_gorro_negros.png" alt="Gafas y Gorro">
+                <p>Gafas y Gorro</p>
+              </div>
+              <div class="inventory-item">
+                <img src="../resources/img/Accesorios/gafas_sol_negras.png" alt="Gafas Negras">
+                <p>Gafas Negras</p>
+              </div>
+              <div class="inventory-item locked">
+                <img src="../resources/img/Accesorios/Gorra_multicolor.png" alt="Gorra Multicolor">
+                <p>Gorra multicolor</p>
+                <div class="lock-overlay">
+                  <img src="../resources/img/lock.png" alt="Bloqueado">
+                </div>
+              </div>
+              <div class="inventory-item locked">
+                <img src="../resources/img/clothes/ribbon.png" alt="Cinta">
+                <p>Cinta</p>
+                <div class="lock-overlay">
+                  <img src="../resources/img/lock.png" alt="Bloqueado">
+                </div>
+              </div>
+              <div class="inventory-item locked">
+                <img src="../resources/img/clothes/bowtie.png" alt="Pajarita">
+                <p>Pajarita</p>
+                <div class="lock-overlay">
+                  <img src="../resources/img/lock.png" alt="Bloqueado">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="equip-button" class="pixel-button">Equipar</button>
+            <button id="close-button" class="pixel-button">Cerrar</button>
           </div>
         </div>
       </div>
-    </main>
+   </main>
 
-
-    <!-- Modal de Inventario -->
-    <div id="closet-modal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>Inventario de Prendas</h2>
-          <span class="close-modal">&times;</span>
-        </div>
-        <div class="modal-body">
-          <div class="inventory-grid">
-            <div class="inventory-item">
-              <img src="../resources/img/regadera.png" alt="Sombrero" />
-              <p>Sombrero</p>
-            </div>
-            <div class="inventory-item">
-              <img src="../resources/img/clothes/sunglasses.png" alt="Gafas" />
-              <p>Gafas de Sol</p>
-            </div>
-            <div class="inventory-item">
-              <img src="../resources/img/clothes/scarf.png" alt="Bufanda" />
-              <p>Bufanda</p>
-            </div>
-            <div class="inventory-item locked">
-              <img src="../resources/img/clothes/bow.png" alt="Lazo" />
-              <p>Lazo</p>
-              <div class="lock-overlay">
-                <img src="../resources/img/lock.png" alt="Bloqueado" />
-              </div>
-            </div>
-            <div class="inventory-item locked">
-              <img src="../resources/img/clothes/ribbon.png" alt="Cinta" />
-              <p>Cinta</p>
-              <div class="lock-overlay">
-                <img src="../resources/img/lock.png" alt="Bloqueado" />
-              </div>
-            </div>
-            <div class="inventory-item locked">
-              <img src="../resources/img/clothes/bowtie.png" alt="Pajarita" />
-              <p>Pajarita</p>
-              <div class="lock-overlay">
-                <img src="../resources/img/lock.png" alt="Bloqueado" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button id="equip-button" class="pixel-button">Equipar</button>
-          <button id="close-button" class="pixel-button">Cerrar</button>
-        </div>
-      </div>
-    </div>
-
-
-    
-    <footer>
+   <footer>
       <nav>
-        <div class="items-footer">
-          <a href="game.html" class="footer-item active">
-            <img src="../resources/icons/homeW.png" alt="Home logo" />
-            <span>Home</span>
-          </a>
-          <a href="#" class="footer-item">
-            <img src="../resources/icons/leaderboardW.png" alt="Trophy logo" />
-            <span>Ranking</span>
-          </a>
-          <a href="#" class="footer-item">
-            <img src="../resources/icons/qrW.png" alt="Camera logo" />
-            <span>Scan</span>
-          </a>
-          <a href="#" class="footer-item">
-            <img src="../resources/icons/tasksW.png" alt="Tasks logo" />
-            <span>Tasks</span>
-          </a>
-          <a href="#" class="footer-item">
-            <img src="../resources/icons/cartW.png" alt="Shop logo" />
-            <span>Shop</span>
-          </a>
-        </div>
+         <div class="items-footer">
+            <a href="game.html" class="footer-item active">
+               <img src="../resources/icons/homeW.png" alt="Home logo">
+               <span>Home</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/leaderboardW.png" alt="Trophy logo">
+               <span>Ranking</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/qrW.png" alt="Camera logo">
+               <span>Scan</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/tasksW.png" alt="Tasks logo">
+               <span>Tasks</span>
+            </a>
+            <a href="#" class="footer-item">
+               <img src="../resources/icons/cartW.png" alt="Shop logo">
+               <span>Shop</span>
+            </a>
+         </div>
       </nav>
-    </footer>
-    <script src="../resources/js/game.js"></script>
-    <script src="../resources/js/regarFlor.js"></script>
-  </body>
+   </footer>
+   <script src="../resources/js/game.js"></script>
+   <script src="../resources/js/regarFlor.js"></script>
+</body>
 </html>

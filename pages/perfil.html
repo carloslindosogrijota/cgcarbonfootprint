@@ -1,20 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
+    <title>Perfil - CIMPA</title>
     <link rel="stylesheet" href="../css/perfil.css">
 </head>
 <body>
-    <main>
-        <div class="pet">
-            <img src="../resources/img/flower.png" alt="Pet">
+    <header>
+        <div class="coins">
+            <img src="../resources/img/coin.png" alt="Coins">
+            <p>00.00</p>
         </div>
-        
-        
-        
+        <div class="back-button">
+            <a href="game.html">
+                <img src="../resources/img/buttonext.png" alt="Volver">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img src="../resources/img/flower.png" alt="Planta">
+                </div>
+                <div class="profile-info">
+                    <h1>Florinda</h1>
+                    <div class="level-badge">Nivel 2</div>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    
+                    <div class="stat-value">38</div>
+                    <div class="stat-label">Días activa</div>
+                </div>
+            </div>
+
+            <div class="buttons-section">
+                <button class="pixel-button rename-button">Cambiar Nombre</button>
+            </div>
+        </div>
     </main>
 
+    <footer>
+        <nav>
+            <div class="items-footer">
+                <a href="game.html" class="footer-item">
+                    <img src="../resources/icons/homeW.png" alt="Home logo">
+                    <span>Home</span>
+                </a>
+                <a href="#" class="footer-item">
+                    <img src="../resources/icons/leaderboardW.png" alt="Trophy logo">
+                    <span>Ranking</span>
+                </a>
+                <a href="#" class="footer-item">
+                    <img src="../resources/icons/qrW.png" alt="Camera logo">
+                    <span>Scan</span>
+                </a>
+                <a href="#" class="footer-item">
+                    <img src="../resources/icons/tasksW.png" alt="Tasks logo">
+                    <span>Tasks</span>
+                </a>
+                <a href="#" class="footer-item">
+                    <img src="../resources/icons/cartW.png" alt="Shop logo">
+                    <span>Shop</span>
+                </a>
+            </div>
+        </nav>
+    </footer>
+
+    <!-- Modal para cambiar nombre -->
+    <div id="rename-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cambiar Nombre</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="input-container">
+                    <label for="new-name">Nuevo nombre:</label>
+                    <input type="text" id="new-name" class="pixel-input" maxlength="12" placeholder="Escribe un nombre">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-name" class="pixel-button">Guardar</button>
+                <button id="cancel-name" class="pixel-button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../resources/js/perfil.js"></script>
 </body>
 </html>
