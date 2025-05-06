@@ -1,5 +1,17 @@
+/* ==== IMPORTACIONES DE FUENTES ==== */
 @import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
 
+/* ==== VARIABLES GLOBALES ==== */
+:root {
+  /* Paleta de colores principal */
+  --color-white: #ffffff;
+  --color-dark-grey: #2c2c2c;
+  --color-red: #c12b2a;
+  --color-orange: #f7941d;
+  --color-background: #f8f8f8;
+}
+
+/* ==== ESTILOS GENERALES ==== */
 * {
   margin: 0;
   padding: 0;
@@ -9,42 +21,48 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
+  font-family: "Pixelify Sans", serif;
+  background-color: var(--color-white);
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ==== HEADER ==== */
 header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 100px;
+  align-items: center;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+  background-color: transparent;
+  z-index: 100;
 }
 
-header img {
-  width: 40px;
-  height: auto;
-}
-
-.all-coins {
-  display: inline-block;
-}
-
-.all-coins p {
-  margin-left: 10px;
-}
-
-.flowers,
 .coins {
   display: flex;
   align-items: center;
-  margin: 15px;
-  width: 5px;
+  gap: 10px;
 }
 
-.coins img,
-.flowers img {
+.coins img {
   width: 25px;
+  height: 25px;
+}
+
+.coins p {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .user {
@@ -52,80 +70,168 @@ header img {
 }
 
 .user img {
-  width: 30px;
+  width: 35px;
+  height: 35px;
+  transition: transform 0.2s;
 }
 
+.user img:hover {
+  transform: scale(1.1);
+}
+
+/* ==== CONTENEDOR PRINCIPAL ==== */
 main {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  padding-bottom: 60px;
+  padding: 20px 0 80px; /* Espacio para el footer */
 }
 
-.health,
-.thirst {
+/* ===== BARRAS DE ESTADO ===== */
+.status-container {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-bar {
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin: 10px 0 -10px;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
-#health,
-#gout {
-  width: 25px;
-}
-
-#health-status,
-#drink-status {
+.status-icon {
+  margin-right: 15px;
   width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.status-icon img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated; /* Mantiene la estética de pixel art */
+}
+
+.status-progress {
+  flex: 1;
+}
+
+.progress-bar-bg {
+  height: 20px;
+  background-color: #444;
+  border: 3px solid #222;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--bar-color),
+    var(--bar-color) 5px,
+    var(--bar-color-light) 5px,
+    var(--bar-color-light) 10px
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.health-fill {
+  --bar-color: #ff5c5c;
+  --bar-color-light: #ff8080;
+  width: 50%; /* Valor inicial */
+}
+
+.thirst-fill {
+  --bar-color: #59a1ff;
+  --bar-color-light: #85bcff;
+  width: 75%; /* Valor inicial */
+}
+
+/* Animación de pulso para barras bajas */
+@keyframes pulse-warning {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.warning {
+  animation: pulse-warning 1s infinite;
+}
+
+/* ==== PÁGINA DE JUEGO ==== */
 .pet {
-  margin-bottom: 15%;
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .pet img {
   width: 250px;
-  margin: 20px 0;
+  max-width: 90%;
+  transition: transform 0.3s;
 }
 
-.items-pet a img {
-  width: 50px;
-  margin: 10px;
+.pet img:hover {
+  transform: scale(1.05);
+  animation: bounce 0.5s ease;
 }
 
 .items-pet {
   position: fixed;
-  bottom: 60px;
+  bottom: 90px;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  padding: 0 20px;
+  max-width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
-  padding: 0 5px;
-  margin-bottom: 35px;
 }
 
 .buttons-pet {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
-.button-chat-pet {
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 45px;
+.drink-button-pet img,
+.closet-button-pet img {
+  width: 50px;
+  transition: transform 0.2s;
 }
 
-.chat-pet {
-  margin-bottom: -80px;
-}
-
-.drink-button-pet,
-.closet-button-pet {
-  margin: 0 0 -10px 15px;
+.drink-button-pet img:hover,
+.closet-button-pet img:hover,
+.drink-button-pet img:active,
+.closet-button-pet img:active {
+  transform: scale(1.1);
 }
 
 .button-chat-pet {
@@ -134,49 +240,183 @@ main {
   margin-right: 15px;
 }
 
-#chat img {
-  width: 25px;
+.button-chat-pet img {
+  width: 40px;
+  transition: transform 0.2s;
+}
+
+.button-chat-pet img:hover {
+  transform: scale(1.1);
+}
+
+/* Estilos para mensajes de la planta */
+.plant-message {
+  position: absolute;
+  background-color: white;
+  border: 2px solid var(--color-red);
+  border-radius: 10px;
+  padding: 10px;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  font-family: "Pixelify Sans", serif;
+  font-size: 14px;
+  max-width: 200px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  animation: message-pop 0.3s ease-out forwards;
+}
+
+.plant-message::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--color-red);
+}
+
+@keyframes message-pop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Regadera animación */
+#watering-can {
+  position: absolute;
+  width: 80px;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0) rotate(45deg);
+  z-index: 10;
+  transition: top 0.6s ease, transform 0.6s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+#watering-can.show {
+  top: 35%;
+  opacity: 1;
+  transform: translate(-50%, 0) rotate(0deg);
+}
+
+/* ==== FOOTER ==== */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-red);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .items-footer {
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  max-width: 400px;
+  align-items: center;
+  max-width: 500px;
   margin: 0 auto;
+  padding: 10px 0;
 }
 
-.items-footer a {
-  flex: 1;
+.footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.footer-item.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.footer-item:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-item img {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+.footer-item span {
+  font-size: 12px;
   text-align: center;
 }
 
-.items-footer img {
-  width: 25px;
-  height: auto;
+/* ==== ANIMACIONES ==== */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-/* watering_can 
-#watering-can {
-  display: none;
-  position: absolute;
-  top: 45%;
-  left: 40%;
-  transform: translateX(-50%);
-  width: 80px;
-  z-index: 10;
+/* ==== MEDIA QUERIES ==== */
+@media (min-width: 768px) {
+  .pet img {
+    width: 280px;
+  }
+  
+  .status-container {
+    max-width: 400px;
+  }
 }
-*/
-#watering-can {
-  position: absolute;
-  top: 5%; 
-  left: 40%;
-  transform: translateX(-40%);
-  z-index: 10;
-  transition: top 0.6s ease, opacity 0.4s ease;
-  opacity: 0;
-}
-#watering-can.show {
-  top: 40%; 
-  opacity: 1;
+
+@media (max-width: 480px) {
+  .pet img {
+    width: 220px;
+  }
+
+  .footer-item img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .footer-item span {
+    font-size: 10px;
+  }
+
+  .drink-button-pet img,
+  .closet-button-pet img {
+    width: 40px;
+  }
+
+  .button-chat-pet img {
+    width: 30px;
+  }
+
+  .status-container {
+    max-width: 250px;
+  }
+
+  .status-icon {
+    margin-right: 10px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .status-icon img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .progress-bar-bg {
+    height: 16px;
+    border-width: 2px;
+  }
 }

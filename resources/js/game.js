@@ -1,21 +1,20 @@
 /**
- * CIMPA GAME - Funcionalidad principal del juego
+ * CIMPA GAME - Funcionalidad simplificada del juego
  * Script para controlar las interacciones con la planta virtual
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos de la UI - Barras de estado mejoradas
+    // Elementos de la UI
     const healthBar = document.getElementById('health-bar');
     const thirstBar = document.getElementById('thirst-bar');
     const healthIcon = document.getElementById('health-icon');
     const thirstIcon = document.getElementById('thirst-icon');
     const plant = document.querySelector('.pet img');
     const drinkButton = document.getElementById('drink');
-    const foodButton = document.getElementById('closet');
     const chatButton = document.getElementById('chat');
     
     // Estados de la planta
-    let healthStatus = 50; // Valor inicial 50%
+    let healthStatus = 100; // Valor inicial 100%
     let thirstStatus = 75; // Valor inicial 75%
     
     // Rutas de imágenes para los iconos
@@ -30,25 +29,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mensajes de la planta
     const plantMessages = [
-        '¡Tengo hambre!',
         '¡Tengo sed!',
         '¡Me siento muy bien!',
         '¡Gracias por cuidarme!',
-        '¡Necesito atención!'
+        '¡Necesito agua!'
     ];
     
-    const retosRSC = [
-        '#[$] RETO -> \n#[i] Información sobre el reto que cubre la empresa en este aspecto.'
-    ];
-
-    //FUNCIONES ANTIGUAS ACTUALIZAR BARRAS DE SALUD Y SED
-    // Función para actualizar la barra de salud según el valor
-    /*function updateHealthBar() {
-        // Actualizar el ancho de la barra de progreso
+    // Función para actualizar la barra de salud
+    function updateHealthBar() {
         healthBar.style.width = healthStatus + '%';
         
-        // Cambiar color y añadir clase de advertencia si es bajo
-        if (healthStatus < 5) {
+        if (healthStatus < 30) {
             healthBar.classList.add('warning');
             healthIcon.src = iconExpressions.emptyHealth;
         } else if (healthStatus < 75) {
@@ -58,15 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
             healthBar.classList.remove('warning');
             healthIcon.src = iconExpressions.fullHealth;
         }
-    }*/
+    }
 
-    // Función para actualizar la barra de sed según el valor
-    /*function updateThirstBar() {
-        // Actualizar el ancho de la barra de progreso
+    // Función para actualizar la barra de sed
+    function updateThirstBar() {
         thirstBar.style.width = thirstStatus + '%';
     
-        // Cambiar color y añadir clase de advertencia si es bajo
-        if (thirstStatus < 5) {
+        if (thirstStatus < 30) {
             thirstBar.classList.add('warning');
             thirstIcon.src = iconExpressions.emptyThirst;
         } else if (thirstStatus < 75) {
@@ -76,49 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
             thirstBar.classList.remove('warning');
             thirstIcon.src = iconExpressions.fullThirst;
         }
-    }*/
-
-    //FUNCION NUEVA
-    function updateBar(statusBar) {
-        //Variables para ambas barras
-        let status;
-        let statusIcon;
-        let full;
-        let mid;
-        let empty;
-
-        // Actualizar el ancho de la barra de progreso y actualizar las variables en cada caso
-        if (statusBar === healthBar){
-            healthBar.style.width = healthStatus + '%';
-            status = healthStatus;
-            statusIcon = healthIcon;
-            full = iconExpressions.fullHealth;
-            mid = iconExpressions.midHealth;
-            empty = iconExpressions.emptyHealth;
-        }else if (statusBar === thirstBar){
-            thirstBar.style.width = thirstStatus + '%';
-            status = thirstStatus;
-            statusIcon = thirstIcon;
-            full = iconExpressions.fullThirst;
-            mid = iconExpressions.midThirst;
-            empty = iconExpressions.emptyThirst;
-        }
-        
-        // Cambiar color y añadir clase de advertencia si es bajo
-        if (status < 5) {
-            statusBar.classList.add('warning');
-            statusIcon.src = empty;
-        } else if (status < 75) {
-            statusBar.classList.remove('warning');
-            statusIcon.src = mid;
-        } else {
-            statusBar.classList.remove('warning');
-            statusIcon.src = full;
-        }
     }
     
-    
-    // Crear un globo de mensaje para la planta
+    // Función para mostrar mensaje de la planta
     function showPlantMessage(message) {
         // Eliminar mensaje anterior si existe
         const oldMessage = document.querySelector('.plant-message');
@@ -133,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Añadir mensaje a la planta
         const plantContainer = document.querySelector('.pet');
-        plantContainer.style.position = 'relative';
         plantContainer.appendChild(messageElement);
         
         // Eliminar mensaje después de 3 segundos
@@ -142,40 +90,79 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // Función de animación para la planta
-    function animatePlant() {
-        plant.style.transform = 'scale(1.5)';
-        setTimeout(() => {
-            plant.style.transform = 'scale(1)';
-        }, 300);
-    }
-    
-    // Botón de regar
-    drinkButton.addEventListener('click', function(e) {
-        e.preventDefault();
+    // Función para regar la planta (un solo click)
+    function waterPlant() {
+        // Si el agua ya está al máximo, mostrar mensaje de advertencia
+        if (thirstStatus >= 100) {
+            showPlantMessage('¡Cuidado! ¡No me ahogues con tanta agua!');
+            return;
+        }
         
-        // Incrementar nivel de hidratación
-        thirstStatus += 20;
+        // Aumentar nivel de hidratación
+        thirstStatus += 20; // Más agua por click para pruebas
         if (thirstStatus > 100) thirstStatus = 100;
         
+        // Si el agua está por encima del 75%, recuperar vida
+        if (thirstStatus > 75 && healthStatus < 100) {
+            healthStatus += 10; // Recupera vida rápidamente para pruebas
+            if (healthStatus > 100) healthStatus = 100;
+            updateHealthBar();
+        }
+        
         // Actualizar UI
-        updateBar(thirstBar);
-        animatePlant();
-        showPlantMessage('¡Ahh! ¡Gracias por el agua!');
+        updateThirstBar();
+        
+        // Mostrar mensaje
+        showPlantMessage('¡Ahh! ¡Qué rico el agua!');
+        
+        // Animar planta
+        plant.classList.add('animate');
+        setTimeout(() => {
+            plant.classList.remove('animate');
+        }, 500);
+    }
+    
+    // Animación de la regadera
+    function showWateringCan() {
+        // Busca si ya existe una regadera
+        let wateringCan = document.getElementById('watering-can');
+        
+        // Si no existe, la crea
+        if (!wateringCan) {
+            wateringCan = document.createElement('img');
+            wateringCan.id = 'watering-can';
+            wateringCan.src = '../resources/img/watering_can.png'; // Nombre correcto de la imagen
+            wateringCan.style.left = '40%'; // Mover la regadera más a la izquierda
+            document.querySelector('.pet').appendChild(wateringCan);
+        }
+        
+        // Muestra la regadera con animación
+        wateringCan.classList.add('show');
+        
+        // Oculta la regadera después de 1 segundo
+        setTimeout(() => {
+            wateringCan.classList.remove('show');
+        }, 1000);
+    }
+    
+    // Botón de regar (click simple)
+    drinkButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        showWateringCan();
+        waterPlant();
     });
     
-    // Botón de alimentar
-    foodButton.addEventListener('click', function(e) {
+    // Para dispositivos táctiles asegurar que funciona con tap
+    drinkButton.addEventListener('touchstart', function(e) {
         e.preventDefault();
-        
-        // Incrementar nivel de salud
-        healthStatus += 20;
-        if (healthStatus > 100) healthStatus = 100;
-        
-        // Actualizar UI
-        updateBar(healthBar);
-        animatePlant();
-        showPlantMessage('¡Mmm! ¡Delicioso!');
+    });
+    
+    drinkButton.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        if (!e.target.moved) {
+            showWateringCan();
+            waterPlant();
+        }
     });
     
     // Botón de chat
@@ -187,37 +174,46 @@ document.addEventListener('DOMContentLoaded', function() {
         showPlantMessage(plantMessages[randomIndex]);
     });
     
-    // Deterioro gradual de la planta con el tiempo
+    // Deterioro gradual de la planta - Más rápido para desarrollo
     function deterioratePlant() {
-        healthStatus -= 1;
-        thirstStatus -= 2;
-        
-        if (healthStatus < 0) healthStatus = 0;
+        // Reducir nivel de sed mucho más rápido para pruebas
+        thirstStatus -= 10; // Reducción más rápida (era 2)
         if (thirstStatus < 0) thirstStatus = 0;
         
-        /*updateHealthBar();
-        updateThirstBar();*/
-        updateBar(healthBar);
-        updateBar(thirstBar);
+        // Solo reducir salud si la sed está en 0
+        if (thirstStatus === 0) {
+            healthStatus -= 5; // Reducción más rápida (era 1)
+            if (healthStatus < 0) healthStatus = 0;
+        }
+        
+        // Recuperar vida si tiene mucha agua
+        if (thirstStatus > 75 && healthStatus < 100) {
+            healthStatus += 2; // Recupera vida gradualmente
+            if (healthStatus > 100) healthStatus = 100;
+        }
+        
+        updateHealthBar();
+        updateThirstBar();
         
         // Avisar al usuario si los niveles son bajos
-        if (healthStatus < 20 || thirstStatus < 20) {
-            const message = healthStatus < 20 ? '¡Tengo hambre!' : '¡Tengo sed!';
-            showPlantMessage(message);
+        if (thirstStatus < 20) {
+            showPlantMessage('¡Tengo sed! ¡Riégame por favor!');
+        } else if (healthStatus < 30) {
+            showPlantMessage('¡Me estoy marchitando!');
         }
     }
     
     // Inicializar valores y UI
-    updateBar(healthBar);
-    updateBar(thirstBar);
+    updateHealthBar();
+    updateThirstBar();
 
-    // Empezar deterioro cada 30 segundos
-    setInterval(deterioratePlant, 20000);
+    // Empezar deterioro cada 5 segundos (más rápido para desarrollo)
+    setInterval(deterioratePlant, 5000); // Intervalo más corto (era 15000)
     
-    /*// Mostrar mensaje inicial después de un breve retraso
+    // Mostrar mensaje inicial después de un breve retraso
     setTimeout(() => {
         showPlantMessage('¡Hola! ¡Cuida de mí!');
-    }, 1000);*/
+    }, 1000);
     
     // Guardar estado en localStorage cuando el usuario cierra la página
     window.addEventListener('beforeunload', function() {
@@ -240,18 +236,22 @@ document.addEventListener('DOMContentLoaded', function() {
             healthStatus = parseFloat(savedHealthStatus);
             thirstStatus = parseFloat(savedThirstStatus);
             
-            // Reducir valores según el tiempo transcurrido (aproximadamente)
-            healthStatus = Math.max(0, healthStatus - timeElapsed * 0.2);
-            thirstStatus = Math.max(0, thirstStatus - timeElapsed * 0.4);
+            // Reducir valores según el tiempo transcurrido (más rápido para desarrollo)
+            thirstStatus = Math.max(0, thirstStatus - timeElapsed * 2.0); // Más rápido (era 0.5)
+            
+            // Reducir salud solo si la sed ha estado en 0
+            if (thirstStatus === 0) {
+                healthStatus = Math.max(0, healthStatus - timeElapsed * 1.0); // Más rápido (era 0.2)
+            }
             
             // Actualizar UI
-            updateBar(healthBar);
-            updateBar(thirstBar);
+            updateHealthBar();
+            updateThirstBar();
             
             // Mensaje basado en el estado
-            if (healthStatus < 20 || thirstStatus < 20) {
+            if (thirstStatus < 20) {
                 setTimeout(() => {
-                    showPlantMessage('¡Me has tenido abandonado! ¡Necesito cuidados!');
+                    showPlantMessage('¡He estado sin agua mucho tiempo!');
                 }, 1000);
             }
         }
