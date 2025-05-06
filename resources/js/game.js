@@ -281,3 +281,81 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Funcionalidad para la modal de inventario
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos de la modal
+    const closetButton = document.getElementById('closet');
+    const closetModal = document.getElementById('closet-modal');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const closeButton = document.getElementById('close-button');
+    const equipButton = document.getElementById('equip-button');
+    const inventoryItems = document.querySelectorAll('.inventory-item:not(.locked)');
+    
+    // Abrir modal al hacer clic en el botón del armario
+    closetButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        closetModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Evitar scroll en la página
+    });
+    
+    // Cerrar modal con el botón X
+    closeModalBtn.addEventListener('click', function() {
+        closetModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restaurar scroll
+    });
+    
+    // Cerrar modal con el botón Cerrar
+    closeButton.addEventListener('click', function() {
+        closetModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restaurar scroll
+    });
+    
+    // Cerrar modal al hacer clic fuera de ella
+    window.addEventListener('click', function(e) {
+        if (e.target === closetModal) {
+            closetModal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
+    });
+    
+    // Seleccionar una prenda
+    inventoryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remover selección previa
+            document.querySelectorAll('.inventory-item.selected').forEach(selected => {
+                selected.classList.remove('selected');
+            });
+            
+            // Añadir selección actual
+            this.classList.add('selected');
+        });
+    });
+    
+    // Equipar prenda seleccionada
+    equipButton.addEventListener('click', function() {
+        const selectedItem = document.querySelector('.inventory-item.selected');
+        
+        if (selectedItem) {
+            // Aquí iría la lógica para equipar la prenda a la planta
+            // Por ahora solo mostramos un mensaje
+            const itemName = selectedItem.querySelector('p').textContent;
+            
+            // Mostrar mensaje
+            const plant = document.querySelector('.pet');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'plant-message';
+            messageElement.textContent = `¡Me encanta mi nuevo ${itemName}!`;
+            plant.appendChild(messageElement);
+            
+            // Eliminar mensaje después de 3 segundos
+            setTimeout(() => {
+                messageElement.remove();
+            }, 3000);
+            
+            // Cerrar modal
+            closetModal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
+    });
+});
