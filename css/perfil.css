@@ -46,7 +46,6 @@ header {
   padding: 15px;
   position: sticky;
   top: 0;
-  background-color: rgba(248, 248, 248, 0.9);
   z-index: 100;
 }
 

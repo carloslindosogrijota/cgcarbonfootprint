@@ -1,439 +1,425 @@
 /**
- * CIMPA GAME - Funcionalidad simplificada del juego
+ * CIMPA GAME - Funcionalidad mejorada del juego
  * Script para controlar las interacciones con la planta virtual
+ * Versión: 2.0
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos de la UI
-    const healthBar = document.getElementById('health-bar');
-    const thirstBar = document.getElementById('thirst-bar');
-    const healthIcon = document.getElementById('health-icon');
-    const thirstIcon = document.getElementById('thirst-icon');
-    const plant = document.querySelector('.pet img');
-    const drinkButton = document.getElementById('drink');
-    const chatButton = document.getElementById('chat');
-    
-    // Estados de la planta
-    let healthStatus = 100; // Valor inicial 100%
-    let thirstStatus = 75; // Valor inicial 75%
-    
-    // Rutas de imágenes para los iconos
-    const iconExpressions = {
-        fullHealth: '../resources/img/expression_health_love.png',
-        midHealth: '../resources/img/expression_health_middle.png',
-        emptyHealth: '../resources/img/expression_health_sad.png',
-        fullThirst: '../resources/img/expression_thirst_full.png',
-        midThirst: '../resources/img/expression_thirst_mid.png',
-        emptyThirst: '../resources/img/expression_thirst_sad.png'
-    };
-    
-    // Mensajes de la planta
-    const plantMessages = [
-        '¡Tengo sed!',
-        '¡Me siento muy bien!',
-        '¡Gracias por cuidarme!',
-        '¡Necesito agua!'
-    ];
-    
-    // Función para actualizar la barra de salud
-    function updateHealthBar() {
-        healthBar.style.width = healthStatus + '%';
-        
-        if (healthStatus < 30) {
-            healthBar.classList.add('warning');
-            healthIcon.src = iconExpressions.emptyHealth;
-        } else if (healthStatus < 75) {
-            healthBar.classList.remove('warning');
-            healthIcon.src = iconExpressions.midHealth;
-        } else {
-            healthBar.classList.remove('warning');
-            healthIcon.src = iconExpressions.fullHealth;
-        }
+// Función principal encapsulada para evitar variables globales
+(function () {
+  // Variables y funciones que se utilizarán en todo el código
+  let healthStatus = 100; // Valor inicial 100%
+  let thirstStatus = 75; // Valor inicial 75%
+  let deteriorateInterval; // Variable para almacenar el intervalo de deterioro
+
+  // Constantes para evitar "números mágicos" en el código
+  const MAX_STATUS = 100;
+  const MIN_STATUS = 0;
+  const WARNING_THRESHOLD = 30;
+  const GOOD_THRESHOLD = 75;
+  const WATER_INCREASE = 20;
+  const HEALTH_INCREASE = 10;
+  const THIRST_DECREASE = 10;
+  const HEALTH_DECREASE = 5;
+  const GRADUAL_HEALTH_INCREASE = 2;
+  const MESSAGE_DURATION = 3000; // 3 segundos
+  const DETERIORATE_INTERVAL = 5000; // 5 segundos
+  const INITIAL_MESSAGE_DELAY = 1000; // 1 segundo
+
+  // Objeto para agrupar todos los selectores de DOM
+  const DOM = {
+    healthBar: document.getElementById("health-bar"),
+    thirstBar: document.getElementById("thirst-bar"),
+    healthIcon: document.getElementById("health-icon"),
+    thirstIcon: document.getElementById("thirst-icon"),
+    plant: document.querySelector(".pet img"),
+    plantContainer: document.querySelector(".pet"),
+    drinkButton: document.getElementById("drink"),
+    chatButton: document.getElementById("chat"),
+    closetButton: document.getElementById("closet"),
+    closetModal: document.getElementById("closet-modal"),
+    closeModalBtn: document.querySelector(".close-modal"),
+    closeButton: document.getElementById("close-button"),
+    equipButton: document.getElementById("equip-button"),
+    inventoryItems: document.querySelectorAll(".inventory-item:not(.locked)"),
+    navItems: document.querySelectorAll(".footer-item"),
+  };
+
+  // Rutas de imágenes para los iconos
+  const iconExpressions = {
+    fullHealth: "../resources/img/expression_health_love.png",
+    midHealth: "../resources/img/expression_health_middle.png",
+    emptyHealth: "../resources/img/expression_health_sad.png",
+    fullThirst: "../resources/img/expression_thirst_full.png",
+    midThirst: "../resources/img/expression_thirst_mid.png",
+    emptyThirst: "../resources/img/expression_thirst_sad.png",
+  };
+
+  // Mensajes de la planta
+  const plantMessages = [
+    "¡Tengo sed!",
+    "¡Me siento muy bien!",
+    "¡Gracias por cuidarme!",
+    "¡Necesito agua!",
+  ];
+
+  /**
+   * Función para actualizar la barra de salud
+   */
+  function updateHealthBar() {
+    DOM.healthBar.style.width = healthStatus + "%";
+
+    if (healthStatus < WARNING_THRESHOLD) {
+      DOM.healthBar.classList.add("warning");
+      DOM.healthIcon.src = iconExpressions.emptyHealth;
+    } else if (healthStatus < GOOD_THRESHOLD) {
+      DOM.healthBar.classList.remove("warning");
+      DOM.healthIcon.src = iconExpressions.midHealth;
+    } else {
+      DOM.healthBar.classList.remove("warning");
+      DOM.healthIcon.src = iconExpressions.fullHealth;
+    }
+  }
+
+  /**
+   * Función para actualizar la barra de sed
+   */
+  function updateThirstBar() {
+    DOM.thirstBar.style.width = thirstStatus + "%";
+
+    if (thirstStatus < WARNING_THRESHOLD) {
+      DOM.thirstBar.classList.add("warning");
+      DOM.thirstIcon.src = iconExpressions.emptyThirst;
+    } else if (thirstStatus < GOOD_THRESHOLD) {
+      DOM.thirstBar.classList.remove("warning");
+      DOM.thirstIcon.src = iconExpressions.midThirst;
+    } else {
+      DOM.thirstBar.classList.remove("warning");
+      DOM.thirstIcon.src = iconExpressions.fullThirst;
+    }
+  }
+
+  /**
+   * Función para mostrar mensaje de la planta
+   * @param {string} message - El mensaje a mostrar
+   */
+  function showPlantMessage(message) {
+    // Eliminar mensaje anterior si existe
+    const oldMessage = document.querySelector(".plant-message");
+    if (oldMessage) {
+      oldMessage.remove();
     }
 
-    // Función para actualizar la barra de sed
-    function updateThirstBar() {
-        thirstBar.style.width = thirstStatus + '%';
-    
-        if (thirstStatus < 30) {
-            thirstBar.classList.add('warning');
-            thirstIcon.src = iconExpressions.emptyThirst;
-        } else if (thirstStatus < 75) {
-            thirstBar.classList.remove('warning');
-            thirstIcon.src = iconExpressions.midThirst;
-        } else {
-            thirstBar.classList.remove('warning');
-            thirstIcon.src = iconExpressions.fullThirst;
-        }
+    // Crear nuevo mensaje
+    const messageElement = document.createElement("div");
+    messageElement.className = "plant-message";
+    messageElement.textContent = message;
+
+    // Añadir mensaje a la planta
+    DOM.plantContainer.appendChild(messageElement);
+
+    // Eliminar mensaje después del tiempo especificado
+    setTimeout(() => {
+      if (messageElement.parentNode) {
+        messageElement.remove();
+      }
+    }, MESSAGE_DURATION);
+  }
+
+  /**
+   * Función para regar la planta
+   */
+  function waterPlant() {
+    // Si el agua ya está al máximo, mostrar mensaje de advertencia
+    if (thirstStatus >= MAX_STATUS) {
+      showPlantMessage("¡Cuidado! ¡No me ahogues con tanta agua!");
+      return;
     }
-    
-    // Función para mostrar mensaje de la planta
-    function showPlantMessage(message) {
-        // Eliminar mensaje anterior si existe
-        const oldMessage = document.querySelector('.plant-message');
-        if (oldMessage) {
-            oldMessage.remove();
-        }
-        
-        // Crear nuevo mensaje
-        const messageElement = document.createElement('div');
-        messageElement.className = 'plant-message';
-        messageElement.textContent = message;
-        
-        // Añadir mensaje a la planta
-        const plantContainer = document.querySelector('.pet');
-        plantContainer.appendChild(messageElement);
-        
-        // Eliminar mensaje después de 3 segundos
-        setTimeout(() => {
-            messageElement.remove();
-        }, 3000);
+
+    // Aumentar nivel de hidratación
+    thirstStatus += WATER_INCREASE;
+    if (thirstStatus > MAX_STATUS) thirstStatus = MAX_STATUS;
+
+    // Si el agua está por encima del umbral, recuperar vida
+    if (thirstStatus > GOOD_THRESHOLD && healthStatus < MAX_STATUS) {
+      healthStatus += HEALTH_INCREASE;
+      if (healthStatus > MAX_STATUS) healthStatus = MAX_STATUS;
+      updateHealthBar();
     }
-    
-    // Función para regar la planta (un solo click)
-    function waterPlant() {
-        // Si el agua ya está al máximo, mostrar mensaje de advertencia
-        if (thirstStatus >= 100) {
-            showPlantMessage('¡Cuidado! ¡No me ahogues con tanta agua!');
-            return;
-        }
-        
-        // Aumentar nivel de hidratación
-        thirstStatus += 20; // Más agua por click para pruebas
-        if (thirstStatus > 100) thirstStatus = 100;
-        
-        // Si el agua está por encima del 75%, recuperar vida
-        if (thirstStatus > 75 && healthStatus < 100) {
-            healthStatus += 10; // Recupera vida rápidamente para pruebas
-            if (healthStatus > 100) healthStatus = 100;
-            updateHealthBar();
-        }
-        
-        // Actualizar UI
-        updateThirstBar();
-        
-        // Mostrar mensaje
-        showPlantMessage('¡Ahh! ¡Qué rico el agua!');
-        
-        // Animar planta
-        plant.classList.add('animate');
-        setTimeout(() => {
-            plant.classList.remove('animate');
-        }, 500);
+
+    // Actualizar UI
+    updateThirstBar();
+
+    // Mostrar mensaje
+    showPlantMessage("¡Ahh! ¡Qué rico el agua!");
+
+    // Animar planta
+    DOM.plant.classList.add("animate");
+    setTimeout(() => {
+      DOM.plant.classList.remove("animate");
+    }, 500);
+
+    // Guardar estado después de la acción
+    saveState();
+  }
+
+  /**
+   * Animación de la regadera
+   */
+  function showWateringCan() {
+    // Busca si ya existe una regadera
+    let wateringCan = document.getElementById("watering-can");
+
+    // Si no existe, la crea
+    if (!wateringCan) {
+      wateringCan = document.createElement("img");
+      wateringCan.id = "watering-can";
+      wateringCan.src = "../resources/img/watering_can.png";
+      wateringCan.style.left = "40%"; // Mover la regadera más a la izquierda
+      DOM.plantContainer.appendChild(wateringCan);
     }
-    
-    // Animación de la regadera
-    function showWateringCan() {
-        // Busca si ya existe una regadera
-        let wateringCan = document.getElementById('watering-can');
-        
-        // Si no existe, la crea
-        if (!wateringCan) {
-            wateringCan = document.createElement('img');
-            wateringCan.id = 'watering-can';
-            wateringCan.src = '../resources/img/watering_can.png'; // Nombre correcto de la imagen
-            wateringCan.style.left = '40%'; // Mover la regadera más a la izquierda
-            document.querySelector('.pet').appendChild(wateringCan);
-        }
-        
-        // Muestra la regadera con animación
-        wateringCan.classList.add('show');
-        
-        // Oculta la regadera después de 1 segundo
-        setTimeout(() => {
-            wateringCan.classList.remove('show');
-        }, 1000);
+
+    // Muestra la regadera con animación
+    wateringCan.classList.add("show");
+
+    // Oculta la regadera después de 1 segundo
+    setTimeout(() => {
+      wateringCan.classList.remove("show");
+    }, 1000);
+  }
+
+  /**
+   * Deterioro gradual de la planta
+   */
+  function deterioratePlant() {
+    // Reducir nivel de sed
+    thirstStatus -= THIRST_DECREASE;
+    if (thirstStatus < MIN_STATUS) thirstStatus = MIN_STATUS;
+
+    // Solo reducir salud si la sed está en 0
+    if (thirstStatus === MIN_STATUS) {
+      healthStatus -= HEALTH_DECREASE;
+      if (healthStatus < MIN_STATUS) healthStatus = MIN_STATUS;
     }
-    
-    // Botón de regar (click simple)
-    drinkButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        showWateringCan();
-        waterPlant();
-    });
-    
-    // Para dispositivos táctiles asegurar que funciona con tap
-    drinkButton.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-    });
-    
-    drinkButton.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        if (!e.target.moved) {
-            showWateringCan();
-            waterPlant();
-        }
-    });
-    
-    // Botón de chat
-    chatButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Mostrar mensaje aleatorio
-        const randomIndex = Math.floor(Math.random() * plantMessages.length);
-        showPlantMessage(plantMessages[randomIndex]);
-    });
-    
-    // Deterioro gradual de la planta - Más rápido para desarrollo
-    function deterioratePlant() {
-        // Reducir nivel de sed mucho más rápido para pruebas
-        thirstStatus -= 10; // Reducción más rápida (era 2)
-        if (thirstStatus < 0) thirstStatus = 0;
-        
-        // Solo reducir salud si la sed está en 0
-        if (thirstStatus === 0) {
-            healthStatus -= 5; // Reducción más rápida (era 1)
-            if (healthStatus < 0) healthStatus = 0;
-        }
-        
-        // Recuperar vida si tiene mucha agua
-        if (thirstStatus > 75 && healthStatus < 100) {
-            healthStatus += 2; // Recupera vida gradualmente
-            if (healthStatus > 100) healthStatus = 100;
-        }
-        
-        updateHealthBar();
-        updateThirstBar();
-        
-        // Avisar al usuario si los niveles son bajos
-        if (thirstStatus < 20) {
-            showPlantMessage('¡Tengo sed! ¡Riégame por favor!');
-        } else if (healthStatus < 30) {
-            showPlantMessage('¡Me estoy marchitando!');
-        }
+
+    // Recuperar vida si tiene mucha agua
+    if (thirstStatus > GOOD_THRESHOLD && healthStatus < MAX_STATUS) {
+      healthStatus += GRADUAL_HEALTH_INCREASE;
+      if (healthStatus > MAX_STATUS) healthStatus = MAX_STATUS;
     }
-    
-    // Inicializar valores y UI
+
     updateHealthBar();
     updateThirstBar();
 
-    // Empezar deterioro cada 5 segundos (más rápido para desarrollo)
-    setInterval(deterioratePlant, 5000); // Intervalo más corto (era 15000)
-    
+    // Avisar al usuario si los niveles son bajos
+    if (thirstStatus < 20 && Math.random() < 0.3) {
+      // Solo muestra el mensaje el 30% de las veces
+      showPlantMessage("¡Tengo sed! ¡Riégame por favor!");
+    } else if (healthStatus < WARNING_THRESHOLD && Math.random() < 0.3) {
+      showPlantMessage("¡Me estoy marchitando!");
+    }
+
+    // Guardar estado periódicamente
+    saveState();
+  }
+
+  /**
+   * Guardar estado en localStorage
+   */
+  function saveState() {
+    localStorage.setItem("healthStatus", healthStatus);
+    localStorage.setItem("thirstStatus", thirstStatus);
+    localStorage.setItem("lastVisit", Date.now());
+  }
+
+  /**
+   * Cargar estado desde localStorage si existe
+   */
+  function loadState() {
+    const savedHealthStatus = localStorage.getItem("healthStatus");
+    const savedThirstStatus = localStorage.getItem("thirstStatus");
+    const lastVisit = localStorage.getItem("lastVisit");
+
+    if (
+      savedHealthStatus !== null &&
+      savedThirstStatus !== null &&
+      lastVisit !== null
+    ) {
+      // Calcular tiempo transcurrido desde la última visita (en minutos)
+      const timeElapsed = (Date.now() - lastVisit) / 60000;
+
+      // Cargar valores guardados
+      healthStatus = parseFloat(savedHealthStatus);
+      thirstStatus = parseFloat(savedThirstStatus);
+
+      // Reducir valores según el tiempo transcurrido
+      thirstStatus = Math.max(MIN_STATUS, thirstStatus - timeElapsed * 2.0);
+
+      // Reducir salud solo si la sed ha estado en 0
+      if (thirstStatus === MIN_STATUS) {
+        healthStatus = Math.max(MIN_STATUS, healthStatus - timeElapsed * 1.0);
+      }
+
+      // Actualizar UI
+      updateHealthBar();
+      updateThirstBar();
+
+      // Mensaje basado en el estado
+      if (thirstStatus < 20) {
+        setTimeout(() => {
+          showPlantMessage("¡He estado sin agua mucho tiempo!");
+        }, INITIAL_MESSAGE_DELAY);
+      }
+    }
+  }
+
+  /**
+   * Inicializar el estado activo del elemento de navegación
+   */
+  function setActiveNavItem() {
+    const currentPath = window.location.pathname;
+
+    DOM.navItems.forEach((item) => {
+      const href = item.getAttribute("href");
+
+      // Si la URL actual termina con el href, añadir clase activa
+      if (currentPath.endsWith(href)) {
+        item.classList.add("active");
+      } else {
+        item.classList.remove("active");
+      }
+    });
+  }
+
+  /**
+   * Inicializar la funcionalidad de la modal de inventario
+   */
+  function initInventoryModal() {
+    // Abrir modal al hacer clic en el botón del armario
+    DOM.closetButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      DOM.closetModal.style.display = "block";
+      document.body.style.overflow = "hidden"; // Evitar scroll en la página
+    });
+
+    // Cerrar modal con el botón X
+    DOM.closeModalBtn.addEventListener("click", function () {
+      DOM.closetModal.style.display = "none";
+      document.body.style.overflow = "auto"; // Restaurar scroll
+    });
+
+    // Cerrar modal con el botón Cerrar
+    DOM.closeButton.addEventListener("click", function () {
+      DOM.closetModal.style.display = "none";
+      document.body.style.overflow = "auto"; // Restaurar scroll
+    });
+
+    // Cerrar modal al hacer clic fuera de ella
+    window.addEventListener("click", function (e) {
+      if (e.target === DOM.closetModal) {
+        DOM.closetModal.style.display = "none";
+        document.body.style.overflow = "auto"; // Restaurar scroll
+      }
+    });
+
+    // Seleccionar una prenda
+    DOM.inventoryItems.forEach((item) => {
+      item.addEventListener("click", function () {
+        // Remover selección previa
+        document
+          .querySelectorAll(".inventory-item.selected")
+          .forEach((selected) => {
+            selected.classList.remove("selected");
+          });
+
+        // Añadir selección actual
+        this.classList.add("selected");
+      });
+    });
+
+    // Equipar prenda seleccionada
+    DOM.equipButton.addEventListener("click", function () {
+      const selectedItem = document.querySelector(".inventory-item.selected");
+
+      if (selectedItem) {
+        // Aquí iría la lógica para equipar la prenda a la planta
+        const itemName = selectedItem.querySelector("p").textContent;
+
+        // Mostrar mensaje
+        showPlantMessage(`¡Me encanta mi nuevo ${itemName}!`);
+
+        // Cerrar modal
+        DOM.closetModal.style.display = "none";
+        document.body.style.overflow = "auto"; // Restaurar scroll
+      }
+    });
+  }
+
+  /**
+   * Inicializar todos los event listeners
+   */
+  function setupEventListeners() {
+    // Botón de regar (click)
+    DOM.drinkButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      showWateringCan();
+      waterPlant();
+    });
+
+    // Para dispositivos táctiles
+    DOM.drinkButton.addEventListener("touchstart", function (e) {
+      e.preventDefault();
+    });
+
+    DOM.drinkButton.addEventListener("touchend", function (e) {
+      e.preventDefault();
+      if (!e.target.moved) {
+        showWateringCan();
+        waterPlant();
+      }
+    });
+
+    // Botón de chat
+    DOM.chatButton.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Mostrar mensaje aleatorio
+      const randomIndex = Math.floor(Math.random() * plantMessages.length);
+      showPlantMessage(plantMessages[randomIndex]);
+    });
+
+    // Guardar estado al cerrar la página
+    window.addEventListener("beforeunload", saveState);
+  }
+
+  /**
+   * Inicializar el juego
+   */
+  function init() {
+    // Cargar estado del almacenamiento local
+    loadState();
+
+    // Configurar event listeners
+    setupEventListeners();
+
+    // Inicializar navegación activa
+    setActiveNavItem();
+
+    // Inicializar modal de inventario
+    initInventoryModal();
+
+    // Actualizar UI inicial
+    updateHealthBar();
+    updateThirstBar();
+
     // Mostrar mensaje inicial después de un breve retraso
     setTimeout(() => {
-        showPlantMessage('¡Hola! ¡Cuida de mí!');
-    }, 1000);
-    
-    // Guardar estado en localStorage cuando el usuario cierra la página
-    window.addEventListener('beforeunload', function() {
-        localStorage.setItem('healthStatus', healthStatus);
-        localStorage.setItem('thirstStatus', thirstStatus);
-        localStorage.setItem('lastVisit', Date.now());
-    });
-    
-    // Cargar estado desde localStorage si existe
-    function loadState() {
-        const savedHealthStatus = localStorage.getItem('healthStatus');
-        const savedThirstStatus = localStorage.getItem('thirstStatus');
-        const lastVisit = localStorage.getItem('lastVisit');
-        
-        if (savedHealthStatus !== null && savedThirstStatus !== null && lastVisit !== null) {
-            // Calcular tiempo transcurrido desde la última visita (en minutos)
-            const timeElapsed = (Date.now() - lastVisit) / 60000;
-            
-            // Cargar valores guardados
-            healthStatus = parseFloat(savedHealthStatus);
-            thirstStatus = parseFloat(savedThirstStatus);
-            
-            // Reducir valores según el tiempo transcurrido (más rápido para desarrollo)
-            thirstStatus = Math.max(0, thirstStatus - timeElapsed * 2.0); // Más rápido (era 0.5)
-            
-            // Reducir salud solo si la sed ha estado en 0
-            if (thirstStatus === 0) {
-                healthStatus = Math.max(0, healthStatus - timeElapsed * 1.0); // Más rápido (era 0.2)
-            }
-            
-            // Actualizar UI
-            updateHealthBar();
-            updateThirstBar();
-            
-            // Mensaje basado en el estado
-            if (thirstStatus < 20) {
-                setTimeout(() => {
-                    showPlantMessage('¡He estado sin agua mucho tiempo!');
-                }, 1000);
-            }
-        }
-    }
-    
-    // Cargar estado al iniciar
-    loadState();
-});
+      showPlantMessage("¡Hola! ¡Cuida de mí!");
+    }, INITIAL_MESSAGE_DELAY);
 
-// Añadir clase activa al ítem de navegación actual
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener la ruta actual
-    const currentPath = window.location.pathname;
-    
-    // Seleccionar todos los elementos de navegación
-    const navItems = document.querySelectorAll('.footer-item');
-    
-    // Comprobar cada elemento de navegación
-    navItems.forEach(item => {
-        const href = item.getAttribute('href');
-        
-        // Si la URL actual termina con el href, añadir clase activa
-        if (currentPath.endsWith(href)) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
-    });
-});
+    // Iniciar deterioro gradual
+    deteriorateInterval = setInterval(deterioratePlant, DETERIORATE_INTERVAL);
+  }
 
-// Funcionalidad para la modal de inventario
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos de la modal
-    const closetButton = document.getElementById('closet');
-    const closetModal = document.getElementById('closet-modal');
-    const closeModalBtn = document.querySelector('.close-modal');
-    const closeButton = document.getElementById('close-button');
-    const equipButton = document.getElementById('equip-button');
-    const inventoryItems = document.querySelectorAll('.inventory-item:not(.locked)');
-    
-    // Abrir modal al hacer clic en el botón del armario
-    closetButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        closetModal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Evitar scroll en la página
-    });
-    
-    // Cerrar modal con el botón X
-    closeModalBtn.addEventListener('click', function() {
-        closetModal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restaurar scroll
-    });
-    
-    // Cerrar modal con el botón Cerrar
-    closeButton.addEventListener('click', function() {
-        closetModal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restaurar scroll
-    });
-    
-    // Cerrar modal al hacer clic fuera de ella
-    window.addEventListener('click', function(e) {
-        if (e.target === closetModal) {
-            closetModal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restaurar scroll
-        }
-    });
-    
-    // Seleccionar una prenda
-    inventoryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // Remover selección previa
-            document.querySelectorAll('.inventory-item.selected').forEach(selected => {
-                selected.classList.remove('selected');
-            });
-            
-            // Añadir selección actual
-            this.classList.add('selected');
-        });
-    });
-    
-    // Equipar prenda seleccionada
-    equipButton.addEventListener('click', function() {
-        const selectedItem = document.querySelector('.inventory-item.selected');
-        
-        if (selectedItem) {
-            // Aquí iría la lógica para equipar la prenda a la planta
-            // Por ahora solo mostramos un mensaje
-            const itemName = selectedItem.querySelector('p').textContent;
-            
-            // Mostrar mensaje
-            const plant = document.querySelector('.pet');
-            const messageElement = document.createElement('div');
-            messageElement.className = 'plant-message';
-            messageElement.textContent = `¡Me encanta mi nuevo ${itemName}!`;
-            plant.appendChild(messageElement);
-            
-            // Eliminar mensaje después de 3 segundos
-            setTimeout(() => {
-                messageElement.remove();
-            }, 3000);
-            
-            // Cerrar modal
-            closetModal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restaurar scroll
-        }
-    });
-});
-
-// Funcionalidad para la modal de inventario
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos de la modal
-    const closetButton = document.getElementById('closet');
-    const closetModal = document.getElementById('closet-modal');
-    const closeModalBtn = document.querySelector('.close-modal');
-    const closeButton = document.getElementById('close-button');
-    const equipButton = document.getElementById('equip-button');
-    const inventoryItems = document.querySelectorAll('.inventory-item:not(.locked)');
-    
-    // Abrir modal al hacer clic en el botón del armario
-    closetButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        closetModal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Evitar scroll en la página
-    });
-    
-    // Cerrar modal con el botón X
-    closeModalBtn.addEventListener('click', function() {
-        closetModal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restaurar scroll
-    });
-    
-    // Cerrar modal con el botón Cerrar
-    closeButton.addEventListener('click', function() {
-        closetModal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restaurar scroll
-    });
-    
-    // Cerrar modal al hacer clic fuera de ella
-    window.addEventListener('click', function(e) {
-        if (e.target === closetModal) {
-            closetModal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restaurar scroll
-        }
-    });
-    
-    // Seleccionar una prenda
-    inventoryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // Remover selección previa
-            document.querySelectorAll('.inventory-item.selected').forEach(selected => {
-                selected.classList.remove('selected');
-            });
-            
-            // Añadir selección actual
-            this.classList.add('selected');
-        });
-    });
-    
-    // Equipar prenda seleccionada
-    equipButton.addEventListener('click', function() {
-        const selectedItem = document.querySelector('.inventory-item.selected');
-        
-        if (selectedItem) {
-            // Aquí iría la lógica para equipar la prenda a la planta
-            // Por ahora solo mostramos un mensaje
-            const itemName = selectedItem.querySelector('p').textContent;
-            
-            // Mostrar mensaje
-            const plant = document.querySelector('.pet');
-            const messageElement = document.createElement('div');
-            messageElement.className = 'plant-message';
-            messageElement.textContent = `¡Me encanta mi nuevo ${itemName}!`;
-            plant.appendChild(messageElement);
-            
-            // Eliminar mensaje después de 3 segundos
-            setTimeout(() => {
-                messageElement.remove();
-            }, 3000);
-            
-            // Cerrar modal
-            closetModal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restaurar scroll
-        }
-    });
-});
+  // Iniciar el juego cuando el DOM esté cargado
+  document.addEventListener("DOMContentLoaded", init);
+})();
