@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - CIMPA</title>
     <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/game.css">
+    <link rel="stylesheet" href="../css/huella-ecologica.css">
 </head>
 <body>
     <header>
@@ -23,19 +25,123 @@
         <div class="profile-container">
             <div class="profile-header">
                 <div class="profile-avatar">
-                    <img src="../resources/img/flower.png" alt="Planta">
+                    <img src="../resources/img/flower.png" alt="Planta" id="plant-avatar">
                 </div>
                 <div class="profile-info">
                     <h1>Florinda</h1>
-                    <div class="level-badge">Nivel 2</div>
+                    <div class="level-badge">Nivel <span id="plant-level">2</span></div>
                 </div>
             </div>
 
             <div class="stats-container">
                 <div class="stat-card">
-                    
                     <div class="stat-value">38</div>
                     <div class="stat-label">Días activa</div>
+                </div>
+            </div>
+
+            <!-- Calculadora de Huella Ecológica -->
+            <div class="huella-ecologica-container">
+                <div class="huella-header">
+                    <h2>Huella Ecológica</h2>
+                    <div class="view-buttons">
+                        <button id="calculator-button" class="view-button active">🧮</button>
+                        <button id="tips-button" class="view-button">💡</button>
+                    </div>
+                </div>
+                
+                <div class="huella-status">
+                    <div class="status-box">
+                        <p>CO₂:</p>
+                        <p id="co2-value" class="co2-positive">0.0 kg</p>
+                    </div>
+                </div>
+                
+                <!-- Vista Calculadora -->
+                <div id="calculator-view" class="huella-view active">
+                    <h3>Registra tus acciones:</h3>
+                    <div class="action-buttons">
+                        <button class="action-button water" data-action="waterPlant">
+                            <span class="action-icon">💧</span>
+                            <span class="action-text">Regar planta</span>
+                        </button>
+                        <button class="action-button feed" data-action="feedOrganically">
+                            <span class="action-icon">🌱</span>
+                            <span class="action-text">Abono natural</span>
+                        </button>
+                        <button class="action-button walk" data-action="walkInstead">
+                            <span class="action-icon">👣</span>
+                            <span class="action-text">Caminar</span>
+                        </button>
+                        <button class="action-button recycle" data-action="recyclePlastic">
+                            <span class="action-icon">♻️</span>
+                            <span class="action-text">Reciclar</span>
+                        </button>
+                        <button class="action-button transport" data-action="usePublicTransport">
+                            <span class="action-icon">🚌</span>
+                            <span class="action-text">Trans. público</span>
+                        </button>
+                        <button class="action-button car" data-action="useCar">
+                            <span class="action-icon">🚗</span>
+                            <span class="action-text">Usar coche</span>
+                        </button>
+                        <button class="action-button buy" data-action="buyAccessory">
+                            <span class="action-icon">🎁</span>
+                            <span class="action-text">Nuevo accesorio</span>
+                        </button>
+                        <button class="action-button device" data-action="leaveDevicesOn">
+                            <span class="action-icon">📱</span>
+                            <span class="action-text">Dispositivos ON</span>
+                        </button>
+                    </div>
+                    
+                    <h3>Historial:</h3>
+                    <div id="actions-history" class="actions-history">
+                        <div class="empty-history">Registra tus primeras acciones para ver su impacto</div>
+                    </div>
+                </div>
+                
+                <!-- Vista Consejos -->
+                <div id="tips-view" class="huella-view">
+                    <h3>Consejos ecológicos:</h3>
+                    <ul class="eco-tips">
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Riega tu planta cuando el sustrato esté seco para ahorrar agua.</span>
+                        </li>
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Usa abono orgánico en lugar de fertilizantes artificiales.</span>
+                        </li>
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Para viajes cortos, camina o usa bicicleta en vez de vehículos.</span>
+                        </li>
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Separa y recicla los plásticos correctamente.</span>
+                        </li>
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Usa transporte público para reducir emisiones de CO2.</span>
+                        </li>
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Apaga completamente los dispositivos, no los dejes en stand-by.</span>
+                        </li>
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Compra solo los accesorios que realmente necesites.</span>
+                        </li>
+                        <li class="eco-tip">
+                            <span class="tip-icon">🌿</span>
+                            <span class="tip-text">Planta un árbol real: absorbe hasta 22kg de CO2 al año.</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="eco-message">
+                        <p>¡Al reducir tu huella de carbono ayudas a que tu planta CIMPA crezca más fuerte!</p>
+                    </div>
                 </div>
             </div>
 
@@ -93,5 +199,6 @@
     </div>
 
     <script src="../resources/js/perfil.js"></script>
+    <script src="../resources/js/huella-ecologica.js"></script>
 </body>
 </html>

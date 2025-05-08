@@ -11,19 +11,18 @@
   let thirstStatus = 75; // Valor inicial 75%
   let deteriorateInterval; // Variable para almacenar el intervalo de deterioro
 
-  // Constantes para evitar "números mágicos" en el código
-  const MAX_STATUS = 100;
-  const MIN_STATUS = 0;
-  const WARNING_THRESHOLD = 30;
-  const GOOD_THRESHOLD = 75;
-  const WATER_INCREASE = 20;
-  const HEALTH_INCREASE = 10;
-  const THIRST_DECREASE = 10;
-  const HEALTH_DECREASE = 5;
-  const GRADUAL_HEALTH_INCREASE = 2;
-  const MESSAGE_DURATION = 3000; // 3 segundos
-  const DETERIORATE_INTERVAL = 5000; // 5 segundos
-  const INITIAL_MESSAGE_DELAY = 1000; // 1 segundo
+  const MAX_STATUS = 100; // Valor máximo de salud/sed
+  const MIN_STATUS = 0; // Valor mínimo de salud/sed
+  const WARNING_THRESHOLD = 30; // Nivel para mostrar advertencia
+  const GOOD_THRESHOLD = 75; // Nivel considerado bueno
+  const WATER_INCREASE = 15; // Aumento de sed al regar
+  const HEALTH_INCREASE = 8; // Aumento de salud al alimentar
+  const THIRST_DECREASE = 0.01; // Reducción de sed por minuto (más lento)
+  const HEALTH_DECREASE = 0.1; // Reducción de salud cuando hay sed baja
+  const GRADUAL_HEALTH_INCREASE = 0.2; // Aumento gradual de salud cuando la sed es buena
+  const MESSAGE_DURATION = 3000; // 4 segundos para los mensajes
+  const DETERIORATE_INTERVAL = 3000; // Comprobar deterioro cada 60 segundos (1 minuto)
+  const INITIAL_MESSAGE_DELAY = 2000;
 
   // Objeto para agrupar todos los selectores de DOM
   const DOM = {

@@ -1,0 +1,312 @@
+/* Estilos para la calculadora de huella ecológica */
+.huella-ecologica-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  border: 4px solid var(--color-red);
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+.huella-header {
+  background-color: var(--color-red);
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #9c1e1d;
+}
+
+.huella-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.view-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.view-button {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #000;
+  background-color: transparent;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: "Pixelify Sans", serif;
+}
+
+.view-button.active {
+  background-color: white;
+  color: var(--color-red);
+  box-shadow: 2px 2px 0 #000;
+  transform: translateY(-2px);
+}
+
+.view-button:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.huella-status {
+  padding: 12px;
+  border-bottom: 4px dashed #ccc;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status-box {
+  background-color: #f8f8f8;
+  border: 2px solid black;
+  padding: 8px 12px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 0 #000;
+  text-align: center;
+}
+
+.status-box p:first-child {
+  margin: 0 0 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.status-box p:last-child {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.co2-positive {
+  color: var(--color-red);
+}
+
+.co2-negative {
+  color: #229922;
+}
+
+/* Vistas de la huella ecológica */
+.huella-view {
+  display: none;
+  padding: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.huella-view.active {
+  display: block;
+}
+
+.huella-view h3 {
+  color: var(--color-red);
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+/* Botones de acción */
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border: 2px solid black;
+  color: white;
+  font-family: "Pixelify Sans", serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+  transition: transform 0.2s;
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+}
+
+.action-button:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+.action-icon {
+  font-size: 1.2rem;
+}
+
+/* Colores de cada tipo de acción */
+.action-button.water {
+  background-color: #3b82f6;
+}
+.action-button.feed {
+  background-color: #16a34a;
+}
+.action-button.walk {
+  background-color: #22c55e;
+}
+.action-button.recycle {
+  background-color: #2563eb;
+}
+.action-button.transport {
+  background-color: #eab308;
+}
+.action-button.car {
+  background-color: #ef4444;
+}
+.action-button.buy {
+  background-color: #f97316;
+}
+.action-button.device {
+  background-color: #6b7280;
+}
+
+/* Historial de acciones */
+.actions-history {
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.empty-history {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.action-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 2px dotted #ddd;
+  margin-bottom: 8px;
+}
+
+.action-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.action-info {
+  display: flex;
+  align-items: center;
+}
+
+.action-status {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.action-details p {
+  margin: 0;
+}
+
+.action-name {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.action-time {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.action-impact {
+  font-weight: bold;
+  padding: 4px 8px;
+  border: 2px solid black;
+  background-color: white;
+  font-size: 0.9rem;
+}
+
+.action-impact.positive {
+  color: #229922;
+}
+
+.action-impact.negative {
+  color: var(--color-red);
+}
+
+/* Consejos ecológicos */
+.eco-tips {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.eco-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 2px solid black;
+  background-color: white;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.tip-icon {
+  font-size: 1.2rem;
+  color: #229922;
+}
+
+.tip-text {
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.eco-message {
+  background-color: #d1fae5;
+  border: 2px solid black;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 3px 3px 0 #000;
+}
+
+.eco-message p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Media Queries */
+@media (max-width: 480px) {
+  .huella-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .view-button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .action-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .action-impact {
+    margin-top: 5px;
+    align-self: flex-end;
+  }
+}
