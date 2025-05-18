@@ -1,130 +1,233 @@
+/* ==== IMPORTACIONES DE FUENTES ==== */
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+
+/* ==== VARIABLES GLOBALES ==== */
+:root {
+  /* Paleta de colores principal */
+  --color-white: #ffffff;
+  --color-dark-grey: #2c2c2c;
+  --color-red: #c12b2a;
+  --color-orange: #f7941d;
+}
+
+/* ==== ESTILOS GENERALES ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: url("../resources/cursor/cursor_02.png"), auto;
+  font-family: "Pixelify Sans", serif;
+}
+
+body {
+  font-family: "Pixelify Sans", serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-white);
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* ==== BANNER Y LOGO ==== */
 .banner {
-    margin: 0 auto;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .banner > img {
-    width: 90px;
+  width: 90px;
 }
 
-.fieldset {
-    display: grid;
-    row-gap: 10px;
-    padding: 50px 30px 60px;
-    border: 3px solid #C12B2A;
-    background-color: #FFEFEF;
-    border-radius: 5px;
-    margin-left: 20px;
+.banner h1 {
+  font-size: 2rem;
+  color: var(--color-red);
+  margin-top: 15px;
+  margin-bottom: 20px;
 }
 
-.photo{
-    margin-top: 60px;
-    grid-row: 4;
-    margin-left: 20px;
-}
-
-.fieldset > img {
-    padding: 5px;
-    width: 40px;
-    justify-self: center;
-    grid-row: 1;
-}
-
-.fieldset > label {
-    margin-bottom: -10px;
-    justify-self: start;
-}
-
-.fieldset > input.input-nombre {
-    height: 25px;
-    width: 100%;
-    margin: 5px auto;
-    background-image: url(../resources/img/input.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: none;
-    outline: none;
-    background-color: transparent;
-}
-
-.digit-group {
-    display: grid;
-    gap: 5px;
-    margin-top: 5px;
-}
-
-.digit-group > .digit-input {
-    width: 21px;
-    height: 25px;
-    grid-row: 1;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    text-align: center;
-    background-image: url(../resources/img/miniinput.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
+/* ==== FORMULARIO ==== */
 form {
-    display: grid;
+  width: 200px;
+  display: grid;
+  position: block;
+  margin: 0 auto;
+  margin-left: 95px;
 }
 
+/* Elementos decorativos de las esquinas */
 #tl {
-    position: relative;
-    justify-self: start;
-    width: 15px;
-    grid-row: 1;
-    top: 13px;
-    left: 17px;
+  position: relative;
+  justify-self: start;
+  width: 15px;
+  grid-row: 1;
+  top: 13px;
+  left: 17px;
 }
 
 #tr {
-    position: relative;
-    justify-self: end;
-    width: 15px;
-    grid-row: 1;
-    top: 13px;
-    right: 12px;
+  position: relative;
+  justify-self: start;
+  width: 15px;
+  grid-row: 1;
+  top: 13px;
+  right: 9px;
 }
 
 #bl {
-    position: relative;
-    justify-self: start;
-    width: 15px;
-    grid-row: 3;
-    bottom: 12px;
-    left: 17px;
+  position: relative;
+  justify-self: start;
+  width: 15px;
+  grid-row: 3;
+  bottom: 12px;
+  left: 17px;
 }
 
 #br {
-    position: relative;
-    justify-self: end;
-    width: 15px;
-    grid-row: 3;
-    bottom: 12px;
-    right: 12px;
+  position: relative;
+  justify-self: start;
+  width: 15px;
+  grid-row: 3;
+  bottom: 12px;
+  right: 9px;
 }
 
+/* Contenedor principal del formulario */
+.fieldset {
+  display: grid;
+  row-gap: 10px;
+  padding: 50px 30px 60px;
+  border: 3px solid var(--color-red);
+  background-color: #FFEFEF;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.fieldset > img {
+  padding: 5px;
+  width: 40px;
+  justify-self: center;
+  grid-row: 1;
+}
+
+.fieldset > label {
+  margin-bottom: -10px;
+  justify-self: start;
+}
+
+/* Estilos para los inputs */
+.fieldset > input.input-nombre {
+  height: 25px;
+  width: 100%;
+  margin: 5px auto;
+  background-image: url(../resources/img/input.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+/* Grupo de dígitos para el código */
+.digit-group {
+  display: grid;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.digit-group > .digit-input {
+  width: 21px;
+  height: 25px;
+  grid-row: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  text-align: center;
+  background-image: url(../resources/img/miniinput.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Botón de envío */
+.photo {
+  margin-top: 60px;
+  grid-row: 4;
+  margin-left: 20px;
+}
+
+.button {
+  width: 40px;
+  transition: transform 0.2s;
+}
+
+.button:hover {
+  transform: scale(1.1);
+}
+
+/* Animación de fondo */
 .PRUEB {
-background-color: white;
-background-image: radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                    radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                    radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                    radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
-animation: hero-gradient-animation 10s linear infinite alternate;
+  background-color: white;
+  background-image: 
+    radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+    radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+    radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+    radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
+  animation: hero-gradient-animation 10s linear infinite alternate;
 }
 
 @keyframes hero-gradient-animation {
-0% {
-    background-image: radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                    radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                        radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                        radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
+  0% {
+    background-image: 
+      radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+      radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+      radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+      radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
+  }
+  100% {
+    background-image: 
+      radial-gradient(circle at 3% 36%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+      radial-gradient(circle at 77% 20%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+      radial-gradient(circle at 76% 78%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+      radial-gradient(circle at 77% 90%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%);
+  }
 }
-100% {
-    background-image: radial-gradient(circle at 3% 36%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                        radial-gradient(circle at 77% 20%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
-                        radial-gradient(circle at 76% 78%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
-                        radial-gradient(circle at 77% 90%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%);
-}
+
+/* ==== MEDIA QUERIES ==== */
+@media (max-width: 480px) {
+  .banner > img {
+    width: 70px;
+  }
+  
+  .banner h1 {
+    font-size: 1.7rem;
+  }
+  
+  .fieldset {
+    padding: 40px 20px 50px;
+  }
+  
+  .fieldset > img {
+    width: 35px;
+  }
+  
+  .digit-group > .digit-input {
+    width: 19px;
+    height: 23px;
+  }
+  
+  #tl, #tr, #bl, #br {
+    width: 12px;
+  }
+  
+  .photo {
+    margin-top: 50px;
+  }
 }

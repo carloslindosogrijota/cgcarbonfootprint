@@ -1,0 +1,163 @@
+/* ==== IMPORTACIONES DE FUENTES ==== */
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+
+/* ==== VARIABLES GLOBALES ==== */
+:root {
+  /* Paleta de colores principal */
+  --color-white: #ffffff;
+  --color-dark-blue: #496c9a;
+  --color-light-blue: #4d4d4d;
+  --color-light-gray: #e5e5e5;
+  --color-dark-grey: #2c2c2c;
+  --color-red: #c12b2a;
+  --color-orange: #f7941d;
+}
+
+/* ==== ESTILOS GENERALES ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: url("../resources/cursor/cursor_02.png"), auto;
+  font-family: "Pixelify Sans", serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Pixelify Sans", serif;
+  background-color: white;
+  background-image: 
+    radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+    radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+    radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+    radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
+  animation: hero-gradient-animation 100s linear infinite alternate;
+}
+
+/* ==== CONTENEDOR ==== */
+.container {
+  text-align: center;
+  max-width: 350px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.contenedor {
+  width: 370px;
+}
+
+/* ==== LOGO Y ENCABEZADOS ==== */
+.logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  color: var(--color-red);
+}
+
+p {
+  margin-top: 10px;
+  opacity: 0.7;
+  font-size: 16px;
+  margin-bottom: 35px;
+}
+
+/* ==== LISTA DE PARTICIPANTES ==== */
+.ul-1 {
+  display: flex;
+}
+
+ul {
+  list-style: square;
+  text-align: start;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 25%;
+}
+
+ul li {
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 10px;
+}
+
+.li-1 img {
+  width: 15px;
+  margin-right: 5px;
+}
+
+li a {
+  text-decoration: none; 
+  color: inherit;
+}
+
+li a:visited {
+  color: inherit; 
+}
+
+li a:hover {
+  background-color: hsla(37.4, 91%, 54%, 0.3); 
+  transition: background-color 0.2s ease-in-out 0.3s;
+  border-radius: 7px;
+}
+
+/* ==== BOTÓN ==== */
+.button {
+  margin-top: 15px;
+  width: 40px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.button:hover {
+  transform: scale(1.1);
+}
+
+/* ==== ANIMACIÓN DE FONDO ==== */
+@keyframes hero-gradient-animation {
+  0% {
+    background-image: 
+      radial-gradient(circle at 89% 40%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+      radial-gradient(circle at 72% 4%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+      radial-gradient(circle at 86% 98%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+      radial-gradient(circle at 15% 17%, hsla(0, 100%, 96%, 1) 16%, transparent 64%);
+  }
+  100% {
+    background-image: 
+      radial-gradient(circle at 3% 36%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+      radial-gradient(circle at 77% 20%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%),
+      radial-gradient(circle at 76% 78%, hsla(0, 100%, 96%, 1) 16%, transparent 64%),
+      radial-gradient(circle at 77% 90%, hsla(37, 91%, 54%, 0.3) 16%, transparent 64%);
+  }
+}
+
+/* ==== MEDIA QUERIES ==== */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+    max-width: 300px;
+  }
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  p {
+    font-size: 14px;
+  }
+  
+  ul {
+    font-size: 16px;
+  }
+  
+  .button {
+    width: 35px;
+  }
+}
